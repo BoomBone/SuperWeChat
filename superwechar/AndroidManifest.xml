@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.hyphenate.chatuidemo"
+    package="cn.ucai.superwechar"
     android:versionCode="38"
     android:versionName="3.3.1">
 
     <uses-sdk
         android:minSdkVersion="14"
         android:targetSdkVersion="22"
-        tools:overrideLibrary="com.easemob.redpacket" />
+        tools:overrideLibrary="cn.easemob.redpacket" />
 
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -35,16 +35,16 @@
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
     <permission
-        android:name="com.hyphenate.chatuidemo.permission.C2D_MESSAGE"
+        android:name="com.ucai.superwechar.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
 
     <uses-permission android:name="com.hyphenate.chatuidemo.permission.C2D_MESSAGE" />
 
     <permission
-        android:name="com.hyphenate.chatuidemo.permission.MIPUSH_RECEIVE"
+        android:name="cn.ucai.superwechar.permission.MIPUSH_RECEIVE"
         android:protectionLevel="signatureOrSystem" />
 
-    <uses-permission android:name="com.hyphenate.chatuidemo.permission.MIPUSH_RECEIVE" />
+    <uses-permission android:name="cn.hyphenate.chatuidemo.permission.MIPUSH_RECEIVE" />
 
     <application
         android:name=".DemoApplication"
@@ -143,7 +143,7 @@
             android:theme="@style/horizontal_slide" />
         <!-- 地图 -->
         <activity
-            android:name="com.hyphenate.easeui.ui.EaseBaiduMapActivity"
+            android:name="cn.ucai.ease.ui..ui.EaseBaiduMapActivity"
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide" />
 
@@ -165,12 +165,12 @@
             android:theme="@style/MyDialogStyle" />
         <!-- 显示下载大图页面 -->
         <activity
-            android:name="com.hyphenate.easeui.ui.EaseShowBigImageActivity"
+            android:name="cn.ucai.ease.ui..ui.EaseShowBigImageActivity"
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide" />
         <!-- 下载文件 -->
         <activity
-            android:name="com.hyphenate.easeui.ui.EaseShowNormalFileActivity"
+            android:name="cn.ucai.ease.ui..ui.EaseShowNormalFileActivity"
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide" />
         <!-- 黑名单 -->
@@ -229,7 +229,7 @@
             android:theme="@style/horizontal_slide"
             android:windowSoftInputMode="stateVisible" />
         <activity
-            android:name="com.hyphenate.easeui.ui.EaseShowVideoActivity"
+            android:name="cn.ucai.ease.ui..ui.EaseShowVideoActivity"
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide"
             android:windowSoftInputMode="stateAlwaysHidden" />
@@ -287,25 +287,25 @@
         <!-- 红包相关Activity start -->
         <!-- 发红包 -->
         <activity
-            android:name="com.easemob.redpacketui.ui.activity.RPRedPacketActivity"
+            android:name="com.easemob.redpacket.ui..ui.activity.RPRedPacketActivity"
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide"
             android:windowSoftInputMode="adjustPan|stateVisible" />
         <!-- 红包详情 -->
         <activity
-            android:name="com.easemob.redpacketui.ui.activity.RPDetailActivity"
+            android:name="com.easemob.redpacket.ui..ui.activity.RPDetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide"
             android:windowSoftInputMode="adjustPan" />
         <!-- 红包记录 -->
         <activity
-            android:name="com.easemob.redpacketui.ui.activity.RPRecordActivity"
+            android:name="com.easemob.redpacket.ui..ui.activity.RPRecordActivity"
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide"
             android:windowSoftInputMode="adjustPan" />
         <!-- 群成员列表页 -->
         <activity
-            android:name="com.easemob.redpacketui.ui.activity.RPGroupMemberActivity"
+            android:name="com.easemob.redpacket.ui..ui.activity.RPGroupMemberActivity"
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide"
             android:windowSoftInputMode="adjustPan|stateHidden" />
@@ -328,30 +328,30 @@
 
         <!--&lt;!&ndash; WebView相关 &ndash;&gt;-->
         <!--<activity-->
-        <!--android:name="com.easemob.redpacketui.ui.activity.RPWebViewActivity"-->
+        <!--android:name="com.easemob.redpacket.ui..ui.activity.RPWebViewActivity"-->
         <!--android:screenOrientation="portrait"-->
         <!--android:theme="@style/horizontal_slide"-->
         <!--android:windowSoftInputMode="adjustResize|stateHidden" />-->
         <!--&lt;!&ndash; 零钱 &ndash;&gt;-->
         <!--<activity-->
-        <!--android:name="com.easemob.redpacketui.ui.activity.RPChangeActivity"-->
+        <!--android:name="com.easemob.redpacket.ui..ui.activity.RPChangeActivity"-->
         <!--android:screenOrientation="portrait"-->
         <!--android:theme="@style/horizontal_slide"-->
         <!--android:windowSoftInputMode="adjustResize|stateHidden" />-->
         <!--&lt;!&ndash; 绑定银行卡 &ndash;&gt;-->
         <!--<activity-->
-        <!--android:name="com.easemob.redpacketui.ui.activity.RPBankCardActivity"-->
+        <!--android:name="com.easemob.redpacket.ui..ui.activity.RPBankCardActivity"-->
         <!--android:screenOrientation="portrait"-->
         <!--android:theme="@style/horizontal_slide"-->
         <!--android:windowSoftInputMode="adjustPan|stateHidden" />-->
         <!--&lt;!&ndash;转账页面&ndash;&gt;-->
         <!--<activity-->
-            <!--android:name="com.easemob.redpacketui.ui.activity.RPTransferActivity"-->
+            <!--android:name="com.easemob.redpacket.ui..ui.activity.RPTransferActivity"-->
             <!--android:screenOrientation="portrait"-->
             <!--android:windowSoftInputMode="adjustPan|stateVisible"/>-->
         <!--&lt;!&ndash;转账详情页面&ndash;&gt;-->
         <!--<activity-->
-            <!--android:name="com.easemob.redpacketui.ui.activity.RPTransferDetailActivity"-->
+            <!--android:name="com.easemob.redpacket.ui..ui.activity.RPTransferDetailActivity"-->
             <!--android:screenOrientation="portrait"-->
             <!--android:windowSoftInputMode="adjustPan|stateHidden"/>-->
         <!---->
@@ -359,7 +359,7 @@
 
 
         <!-- 开机自启动服务 -->
-        <receiver android:name=".receiver.StartServiceReceiver">
+        <receiver android:name="receiver.StartServiceReceiver">
             <intent-filter android:priority="1000">
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.QUICKBOOT_POWERON" />
@@ -385,7 +385,7 @@
             android:exported="false" />
 
         <receiver
-            android:name=".receiver.GCMPushBroadCast"
+            android:name="receiver.GCMPushBroadCast"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.hyphenate.sdk.push" />
