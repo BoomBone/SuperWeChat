@@ -18,7 +18,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import cn.ucai.superwechar.DemoHelper;
+import cn.ucai.superwechar.SuperWeChatHelper;
 import cn.ucai.superwechar.ui.VideoCallActivity;
 import cn.ucai.superwechar.ui.VoiceCallActivity;
 
@@ -28,7 +28,7 @@ public class CallReceiver extends BroadcastReceiver{
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		if(!DemoHelper.getInstance().isLoggedIn())
+		if(!SuperWeChatHelper.getInstance().isLoggedIn())
 		    return;
 		//username
 		String from = intent.getStringExtra("from");

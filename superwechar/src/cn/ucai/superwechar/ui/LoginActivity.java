@@ -31,8 +31,8 @@ import android.widget.Toast;
 
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
-import cn.ucai.superwechar.DemoApplication;
-import cn.ucai.superwechar.DemoHelper;
+import cn.ucai.superwechar.SuperWeChatApplication;
+import cn.ucai.superwechar.SuperWeChatHelper;
 import cn.ucai.superwechar.R;
 import cn.ucai.superwechar.db.DemoDBManager;
 import cn.ucai.easeui.utils.EaseCommonUtils;
@@ -55,7 +55,7 @@ public class LoginActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 
 		// enter the main activity if already logged in
-		if (DemoHelper.getInstance().isLoggedIn()) {
+		if (SuperWeChatHelper.getInstance().isLoggedIn()) {
 			autoLogin = true;
 			startActivity(new Intent(LoginActivity.this, MainActivity.class));
 
@@ -97,8 +97,8 @@ public class LoginActivity extends BaseActivity {
 			}
 		});
 
-		if (DemoHelper.getInstance().getCurrentUsernName() != null) {
-			usernameEditText.setText(DemoHelper.getInstance().getCurrentUsernName());
+		if (SuperWeChatHelper.getInstance().getCurrentUsernName() != null) {
+			usernameEditText.setText(SuperWeChatHelper.getInstance().getCurrentUsernName());
 		}
 	}
 
@@ -143,7 +143,7 @@ public class LoginActivity extends BaseActivity {
         DemoDBManager.getInstance().closeDB();
 
         // reset current user name before login
-        DemoHelper.getInstance().setCurrentUserName(currentUsername);
+        SuperWeChatHelper.getInstance().setCurrentUserName(currentUsername);
         
 		final long start = System.currentTimeMillis();
 		// call login method
@@ -161,7 +161,7 @@ public class LoginActivity extends BaseActivity {
 
 			    // update current user's display name for APNs
 				boolean updatenick = EMClient.getInstance().pushManager().updatePushNickname(
-						DemoApplication.currentUserNick.trim());
+						SuperWeChatApplication.currentUserNick.trim());
 				if (!updatenick) {
 					Log.e("LoginActivity", "update current user nick fail");
 				}
@@ -170,7 +170,7 @@ public class LoginActivity extends BaseActivity {
 				    pd.dismiss();
 				}
 				// get user's info (this should be get from App's server or 3rd party service)
-				DemoHelper.getInstance().getUserProfileManager().asyncGetCurrentUserInfo();
+				SuperWeChatHelper.getInstance().getUserProfileManager().asyncGetCurrentUserInfo();
 
 				Intent intent = new Intent(LoginActivity.this,
 						MainActivity.class);
