@@ -143,7 +143,7 @@
             android:theme="@style/horizontal_slide" />
         <!-- 地图 -->
         <activity
-            android:name="cn.ucai.ease.ui..ui.EaseBaiduMapActivity"
+            android:name="cn.ucai.easeui.ui.EaseBaiduMapActivity"
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide" />
 
@@ -165,12 +165,12 @@
             android:theme="@style/MyDialogStyle" />
         <!-- 显示下载大图页面 -->
         <activity
-            android:name="cn.ucai.ease.ui..ui.EaseShowBigImageActivity"
+            android:name="cn.ucai.easeui.ui.EaseShowBigImageActivity"
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide" />
         <!-- 下载文件 -->
         <activity
-            android:name="cn.ucai.ease.ui..ui.EaseShowNormalFileActivity"
+            android:name="cn.ucai.easeui.ui.EaseShowNormalFileActivity"
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide" />
         <!-- 黑名单 -->
@@ -229,7 +229,7 @@
             android:theme="@style/horizontal_slide"
             android:windowSoftInputMode="stateVisible" />
         <activity
-            android:name="cn.ucai.ease.ui..ui.EaseShowVideoActivity"
+            android:name="cn.ucai.easeui.ui.EaseShowVideoActivity"
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide"
             android:windowSoftInputMode="stateAlwaysHidden" />
@@ -287,25 +287,25 @@
         <!-- 红包相关Activity start -->
         <!-- 发红包 -->
         <activity
-            android:name="com.easemob.redpacket.ui..ui.activity.RPRedPacketActivity"
+            android:name="com.easemob.redpacketui.ui.activity.RPRedPacketActivity"
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide"
             android:windowSoftInputMode="adjustPan|stateVisible" />
         <!-- 红包详情 -->
         <activity
-            android:name="com.easemob.redpacket.ui..ui.activity.RPDetailActivity"
+            android:name="com.easemob.redpacketui.ui.activity.RPDetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide"
             android:windowSoftInputMode="adjustPan" />
         <!-- 红包记录 -->
         <activity
-            android:name="com.easemob.redpacket.ui..ui.activity.RPRecordActivity"
+            android:name="com.easemob.redpacketui.ui.activity.RPRecordActivity"
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide"
             android:windowSoftInputMode="adjustPan" />
-        <!-- 群成员列表页 -->
+         群成员列表页
         <activity
-            android:name="com.easemob.redpacket.ui..ui.activity.RPGroupMemberActivity"
+            android:name="com.easemob.redpacketui.ui.activity.RPGroupMemberActivity"
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide"
             android:windowSoftInputMode="adjustPan|stateHidden" />
