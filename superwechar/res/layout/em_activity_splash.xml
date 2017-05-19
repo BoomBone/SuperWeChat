@@ -3,15 +3,15 @@
     android:id="@+id/splash_root"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/em_splash" >
+    android:background="@color/colorPrimary" >
 
     <ImageView
         android:id="@+id/iv_splash_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:src="@drawable/em_splash_logo" />
-
+        android:src="@drawable/icon_logo" />
+<!--
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -49,6 +49,6 @@
             android:textSize="20sp"
             tools:ignore="HardcodedText">
         </TextView>
-    </LinearLayout>
+    </LinearLayout>-->
 
 </RelativeLayout>

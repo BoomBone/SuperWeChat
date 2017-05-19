@@ -5,7 +5,7 @@
     android:background="#eff2f6"
     android:orientation="vertical" >
 
-    <RelativeLayout
+   <!-- <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:layout_weight="1" >
@@ -16,7 +16,7 @@
             android:layout_centerHorizontal="true"
             android:layout_centerInParent="true"
             android:src="@drawable/em_welcom_logo" />
-    </RelativeLayout>
+    </RelativeLayout>-->
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -29,16 +29,18 @@
             android:layout_height="54dp"
             android:layout_marginLeft="28dp"
             android:layout_marginRight="28dp"
-            android:background="#fff" >
+            android:layout_marginBottom="7dp"
+            >
 
-            <ImageView
-                android:id="@+id/iv_username"
-                android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
+                android:text="@string/user_name"
+                android:textColor="#000"
+                android:textSize="18sp"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="10dip"
-                android:src="@drawable/em_icon_account" />
+                />
 
             <EditText
                 android:id="@+id/username"
@@ -46,11 +48,11 @@
                 android:layout_height="match_parent"
                 android:layout_centerVertical="true"
                 android:background="@null"
-                android:hint="@string/user_name"
-                android:paddingLeft="10dip"
+                android:layout_toRightOf="@+id/tv_name"
+                android:hint="@string/put_username"
+                android:paddingLeft="15dip"
                 android:singleLine="true"
-                android:textColor="#000"
-                android:textSize="18sp" />
+                />
         </RelativeLayout>
 
         <RelativeLayout
@@ -61,62 +63,63 @@
             android:layout_marginLeft="28dp"
             android:layout_marginRight="28dp"
             android:layout_marginTop="10dp"
-            android:background="#fff" >
+            >
 
-            <ImageView
-                android:id="@+id/iv_password"
-                android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/tv_password"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
+                android:text="@string/password"
+                android:textColor="#000"
+                android:textSize="18sp"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="10dip"
-                android:src="@drawable/em_icon_pwd" />
+                />
 
             <EditText
                 android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_toRightOf="@+id/tv_password"
                 android:layout_centerVertical="true"
                 android:background="@null"
                 android:hint="@string/password"
                 android:inputType="textPassword"
-                android:paddingLeft="10dip"
+                android:paddingLeft="15dip"
                 android:singleLine="true"
-                android:textSize="18sp"
                 android:imeOptions="actionDone"/>
         </RelativeLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/rl_password"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginTop="30dp"
-            android:orientation="horizontal" >
 
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            >
             <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
                 android:layout_marginLeft="10dip"
                 android:layout_marginRight="10dip"
-                android:layout_weight="1"
                 android:background="@drawable/em_button_register_bg"
-                android:gravity="center"
                 android:onClick="register"
                 android:paddingBottom="7dp"
                 android:paddingTop="7dp"
                 android:text="@string/register"
                 android:textColor="@android:color/black"
                 android:textSize="18sp" />
-
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rl_password"
+            >
             <Button
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dip"
                 android:layout_marginRight="10dip"
-                android:layout_weight="1"
-                android:background="@drawable/em_button_login_bg"
+                android:background="@color/green"
                 android:gravity="center"
                 android:onClick="login"
                 android:paddingBottom="7dp"
@@ -124,7 +127,9 @@
                 android:text="@string/login"
                 android:textColor="@android:color/white"
                 android:textSize="18sp" />
-        </LinearLayout>
+        </RelativeLayout>
+
+
     </RelativeLayout>
 
 </LinearLayout>

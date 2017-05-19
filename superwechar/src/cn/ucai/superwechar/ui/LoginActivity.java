@@ -34,7 +34,7 @@ import com.hyphenate.chat.EMClient;
 import cn.ucai.superwechar.SuperWeChatApplication;
 import cn.ucai.superwechar.SuperWeChatHelper;
 import cn.ucai.superwechar.R;
-import cn.ucai.superwechar.db.DemoDBManager;
+import cn.ucai.superwechar.db.SuperWeChatDBManager;
 import cn.ucai.easeui.utils.EaseCommonUtils;
 
 /**
@@ -140,7 +140,7 @@ public class LoginActivity extends BaseActivity {
 
 		// After logout，the DemoDB may still be accessed due to async callback, so the DemoDB will be re-opened again.
 		// close it before login to make sure DemoDB not overlap
-        DemoDBManager.getInstance().closeDB();
+        SuperWeChatDBManager.getInstance().closeDB();
 
         // reset current user name before login
         SuperWeChatHelper.getInstance().setCurrentUserName(currentUsername);

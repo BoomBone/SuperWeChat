@@ -28,7 +28,7 @@ import com.hyphenate.chat.EMMessage.Status;
 import com.hyphenate.chat.EMMessage.Type;
 import com.hyphenate.chat.EMOptions;
 import com.hyphenate.chat.EMTextMessageBody;
-import cn.ucai.superwechar.db.DemoDBManager;
+import cn.ucai.superwechar.db.SuperWeChatDBManager;
 import cn.ucai.superwechar.db.InviteMessgeDao;
 import cn.ucai.superwechar.db.UserDao;
 import cn.ucai.superwechar.domain.EmojiconExampleGroupData;
@@ -1351,7 +1351,7 @@ public class SuperWeChatHelper {
         setContactList(null);
         setRobotList(null);
         getUserProfileManager().reset();
-        DemoDBManager.getInstance().closeDB();
+        SuperWeChatDBManager.getInstance().closeDB();
     }
 
     public void pushActivity(Activity activity) {
