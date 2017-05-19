@@ -8,6 +8,7 @@ import cn.ucai.superwechar.R;
 import cn.ucai.superwechar.ui.GuideActivity;
 import cn.ucai.superwechar.ui.LoginActivity;
 import cn.ucai.superwechar.ui.MainActivity;
+import cn.ucai.superwechar.ui.RegisterActivity;
 
 /**
  * Created by Administrator on 2017/5/19.
@@ -29,4 +30,7 @@ public class MFGT {
         startActivity(activity, GuideActivity.class);
     }
 
+    public static void gotoRegister(Activity activity) {
+        startActivity(activity, RegisterActivity.class);
+    }
 }
