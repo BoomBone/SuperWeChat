@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import cn.ucai.superwechar.R;
+import cn.ucai.superwechar.ui.GuideActivity;
 import cn.ucai.superwechar.ui.LoginActivity;
 import cn.ucai.superwechar.ui.MainActivity;
 
@@ -23,6 +24,9 @@ public class MFGT {
     }
     public static void gotoMain(Activity activity){
         startActivity(activity, MainActivity.class);
+    }
+    public static void gotoGuide(Activity activity){
+        startActivity(activity, GuideActivity.class);
     }
 
 }
