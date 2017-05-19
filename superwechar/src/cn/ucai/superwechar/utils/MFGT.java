@@ -33,4 +33,10 @@ public class MFGT {
     public static void gotoRegister(Activity activity) {
         startActivity(activity, RegisterActivity.class);
     }
+
+    public static void finish(Activity activity) {
+        activity.finish();
+        activity.overridePendingTransition(R.anim.push_right_in,R.anim.push_right_out);
+    }
+
 }
