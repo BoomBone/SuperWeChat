@@ -7,13 +7,13 @@
     android:layout_height="match_parent"
     android:background="@color/common_bg">
 
-    <cn.ucai.superwechat.widget.MFViewPager
+    <cn.ucai.superwechar.widget.MFViewPager
         android:id="@+id/layout_viewpage"
         android:layout_below="@id/title_bar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingBottom="48dp">
-    </cn.ucai.superwechat.widget.MFViewPager>
+    </cn.ucai.superwechar.widget.MFViewPager>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,40 +24,40 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#D6DCDC"/>
-        <cn.ucai.superwechat.widget.DMTabHost
+        <cn.ucai.superwechar.widget.DMTabHost
             android:id="@+id/layout_tabhost"
             android:layout_width="match_parent"
             android:layout_height="47dp"
             android:paddingBottom="1dp">
-            <cn.ucai.superwechat.widget.DMTabButton
+            <cn.ucai.superwechar.widget.DMTabButton
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 app:drawableTop="@drawable/tab_weixin"
                 app:tabtext="@string/app_name">
-            </cn.ucai.superwechat.widget.DMTabButton>
-            <cn.ucai.superwechat.widget.DMTabButton
+            </cn.ucai.superwechar.widget.DMTabButton>
+            <cn.ucai.superwechar.widget.DMTabButton
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 app:drawableTop="@drawable/tab_contact_list"
                 app:tabtext="@string/contacts">
-            </cn.ucai.superwechat.widget.DMTabButton>
-            <cn.ucai.superwechat.widget.DMTabButton
+            </cn.ucai.superwechar.widget.DMTabButton>
+            <cn.ucai.superwechar.widget.DMTabButton
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 app:drawableTop="@drawable/tab_find"
                 app:tabtext="@string/discover">
-            </cn.ucai.superwechat.widget.DMTabButton>
-            <cn.ucai.superwechat.widget.DMTabButton
+            </cn.ucai.superwechar.widget.DMTabButton>
+            <cn.ucai.superwechar.widget.DMTabButton
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 app:drawableTop="@drawable/tab_profile"
                 app:tabtext="@string/me">
-            </cn.ucai.superwechat.widget.DMTabButton>
-        </cn.ucai.superwechat.widget.DMTabHost>
+            </cn.ucai.superwechar.widget.DMTabButton>
+        </cn.ucai.superwechar.widget.DMTabHost>
     </LinearLayout>
 
 </RelativeLayout>
