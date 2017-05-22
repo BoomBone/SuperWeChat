@@ -30,4 +30,15 @@ public class UserModel implements IUserModel {
                 .targetClass(String.class)
                 .execute(listener);
     }
+
+    @Override
+    public void login(Context context, String username,String password, OkHttpUtils.OnCompleteListener<String> listener) {
+        OkHttpUtils<String> utils = new OkHttpUtils<>(context);
+        utils.setRequestUrl(I.REQUEST_LOGIN)
+                .addParam(I.User.USER_NAME, username)
+                .addParam(I.User.PASSWORD, password)
+                .post()
+                .targetClass(String.class)
+                .execute(listener);
+    }
 }

@@ -37,6 +37,8 @@ import cn.ucai.superwechar.data.Result;
 import cn.ucai.superwechar.data.net.IUserModel;
 import cn.ucai.superwechar.data.net.OnCompleteListener;
 import cn.ucai.superwechar.data.net.UserModel;
+import cn.ucai.superwechar.utils.CommonUtils;
+import cn.ucai.superwechar.utils.L;
 import cn.ucai.superwechar.utils.MD5;
 import cn.ucai.superwechar.utils.MFGT;
 import cn.ucai.superwechar.utils.ResultUtils;
@@ -45,6 +47,7 @@ import cn.ucai.superwechar.utils.ResultUtils;
  * register screen
  */
 public class RegisterActivity extends BaseActivity {
+    private static final String TAG = "RegisterActivity";
     @BindView(R.id.img_back)
     ImageView imgBack;
     @BindView(R.id.txt_title)
@@ -68,6 +71,7 @@ public class RegisterActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.em_activity_register);
         unbinder = ButterKnife.bind(this);
+        model = new UserModel();
     }
 
 
@@ -102,49 +106,46 @@ public class RegisterActivity extends BaseActivity {
     }
 
     private void registerApp() {
-        model = new UserModel();
+
         model.register(RegisterActivity.this, username, nickname, MD5.getMessageDigest(password), new OnCompleteListener<String>() {
             @Override
             public void onSuccess(String s) {
-              /*  if(s!=null){
-                    Result result = ResultUtils.getResultFromJson(s, User.class);
+                boolean isSuccess = true;
+                if(s!=null){
+                    Result result = ResultUtils.getResultFromJson(s, null);
                     if(result!=null){
                         if(result.getRetCode()==I.MSG_REGISTER_USERNAME_EXISTS){
-                            mUsername.requestFocus();
-                            mUsername.setError(getString(R.string.register_fail_exists));
-                        }
-                        else if(result.getRetCode()==I.MSG_REGISTER_FAIL){
-                            mUsername.requestFocus();
-                            mUsername.setError(getString(R.string.register_fail));
+                            CommonUtils.showShortToast(R.string.User_already_exists);
+                        }else if(result.getRetCode()==I.MSG_REGISTER_FAIL){
+                            CommonUtils.showShortToast(R.string.Registration_failed);
                         }else{
-                            registerSuccess();
+                            isSuccess = false;
+                            registerEMApp();
                         }
                     }
-
-                }else{
-                    dismissDialog();
-                }*/
-                registerEMApp();
-
+                    if(isSuccess){
+                        dismissDialog();
+                    }
+                }
             }
 
             @Override
             public void onError(String error) {
                 dismissDialog();
+                CommonUtils.showShortToast(R.string.Registration_failed);
             }
         });
     }
-    private void unRegister() {
-        model = new UserModel();
+    private void  unRegister(){
         model.unregister(RegisterActivity.this, username, new OnCompleteListener<String>() {
             @Override
             public void onSuccess(String result) {
-
+                L.e(TAG,"unRegister().onSuccess"+result);
             }
 
             @Override
             public void onError(String error) {
-
+                L.e(TAG,"unRegister().onError"+error);
             }
         });
     }
@@ -153,7 +154,7 @@ public class RegisterActivity extends BaseActivity {
             public void run() {
                 try {
                     // call method in SDK
-                    EMClient.getInstance().createAccount(username, password);
+                    EMClient.getInstance().createAccount(username, MD5.getMessageDigest(password));
                     runOnUiThread(new Runnable() {
                         public void run() {
                             if (!RegisterActivity.this.isFinishing())
