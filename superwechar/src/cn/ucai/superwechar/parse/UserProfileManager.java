@@ -4,14 +4,23 @@ import android.content.Context;
 
 import com.hyphenate.EMValueCallBack;
 import com.hyphenate.chat.EMClient;
+
+import cn.ucai.easeui.domain.User;
 import cn.ucai.superwechar.SuperWeChatHelper;
+import cn.ucai.superwechar.data.Result;
+import cn.ucai.superwechar.data.net.IUserModel;
+import cn.ucai.superwechar.data.net.OnCompleteListener;
+import cn.ucai.superwechar.data.net.UserModel;
+import cn.ucai.superwechar.utils.L;
 import cn.ucai.superwechar.utils.PreferenceManager;
 import cn.ucai.easeui.domain.EaseUser;
+import cn.ucai.superwechar.utils.ResultUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserProfileManager {
+	private static final String TAG = "UserProfileManager";
 
 	/**
 	 * application context
@@ -30,8 +39,10 @@ public class UserProfileManager {
 	private List<SuperWeChatHelper.DataSyncListener> syncContactInfosListeners;
 
 	private boolean isSyncingContactInfosWithServer = false;
+	IUserModel model;
 
 	private EaseUser currentUser;
+	private User currentAppUser;
 
 	public UserProfileManager() {
 	}
@@ -43,6 +54,8 @@ public class UserProfileManager {
 		ParseManager.getInstance().onInit(context);
 		syncContactInfosListeners = new ArrayList<SuperWeChatHelper.DataSyncListener>();
 		sdkInited = true;
+		appContext = context;
+		model = new UserModel();
 		return true;
 	}
 
@@ -109,6 +122,7 @@ public class UserProfileManager {
 	public synchronized void reset() {
 		isSyncingContactInfosWithServer = false;
 		currentUser = null;
+		currentAppUser = null;
 		PreferenceManager.getInstance().removeCurrentUserInfo();
 	}
 
@@ -121,6 +135,16 @@ public class UserProfileManager {
 			currentUser.setAvatar(getCurrentUserAvatar());
 		}
 		return currentUser;
+	}
+	public synchronized User getCurrentAppUserInfo() {
+		if (currentAppUser == null) {
+			String username = EMClient.getInstance().getCurrentUser();
+			currentAppUser = new User(username);
+			String nick = getCurrentUserNick();
+			currentAppUser.setMUserNick((nick != null) ? nick : username);
+			currentAppUser.setAvatar(getCurrentUserAvatar());
+		}
+		return currentAppUser;
 	}
 
 	public boolean updateCurrentUserNickName(final String nickname) {
@@ -157,6 +181,31 @@ public class UserProfileManager {
 		});
 
 	}
+	/*-----------------------------------------------------------------------------------------*/
+	public void asyncGetCurrentAppUserInfo() {
+		model.loadUserInfo(appContext, EMClient.getInstance().getCurrentUser(), new OnCompleteListener<String>() {
+			@Override
+			public void onSuccess(String s) {
+				L.e(TAG,"s="+s);
+				if(s!=null){
+					Result<User> result = ResultUtils.getResultFromJson(s, User.class);
+					if(result!=null&&result.isRetMsg()){
+						User user = result.getRetData();
+						setCurrentAppUserNick(user.getMUserNick());
+						setCurrentAppUserAvatar(user.getAvatar());
+					}
+
+				}
+
+			}
+
+			@Override
+			public void onError(String error) {
+
+			}
+		});
+
+	}
 	public void asyncGetUserInfo(final String username,final EMValueCallBack<EaseUser> callback){
 		ParseManager.getInstance().asyncGetUserInfo(username, callback);
 	}
@@ -167,6 +216,15 @@ public class UserProfileManager {
 
 	private void setCurrentUserAvatar(String avatar) {
 		getCurrentUserInfo().setAvatar(avatar);
+		PreferenceManager.getInstance().setCurrentUserAvatar(avatar);
+	}
+	private void setCurrentAppUserNick(String nickname) {
+		getCurrentAppUserInfo().setMUserNick(nickname);
+		PreferenceManager.getInstance().setCurrentUserNick(nickname);
+	}
+
+	private void setCurrentAppUserAvatar(String avatar) {
+		getCurrentAppUserInfo().setAvatar(avatar);
 		PreferenceManager.getInstance().setCurrentUserAvatar(avatar);
 	}
 
