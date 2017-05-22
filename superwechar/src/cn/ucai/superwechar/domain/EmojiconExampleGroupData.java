@@ -1,19 +1,21 @@
 package cn.ucai.superwechar.domain;
 
-import cn.ucai.superwechar.SuperWeChatApplication;
-import cn.ucai.superwechar.R;
+
+
 import cn.ucai.easeui.domain.EaseEmojicon;
 import cn.ucai.easeui.domain.EaseEmojicon.Type;
 import cn.ucai.easeui.domain.EaseEmojiconGroupEntity;
+import cn.ucai.superwechar.R;
+import cn.ucai.superwechar.SuperWeChatApplication;
 
 import java.util.Arrays;
 
 public class EmojiconExampleGroupData {
     
     private static int[] icons = new int[]{
-        R.drawable.icon_002_cover,  
+        R.drawable.icon_002_cover,
         R.drawable.icon_007_cover,  
-        R.drawable.icon_010_cover,  
+        R.drawable.icon_010_cover,
         R.drawable.icon_012_cover,  
         R.drawable.icon_013_cover,  
         R.drawable.icon_018_cover,  
