@@ -28,12 +28,10 @@ import android.os.PowerManager;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.easemob.redpacketsdk.constant.RPConstant;
@@ -53,6 +51,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import cn.easemob.redpacket.utils.RedPacketUtil;
 import cn.ucai.easeui.utils.EaseCommonUtils;
 import cn.ucai.superwechar.Constant;
@@ -63,11 +62,12 @@ import cn.ucai.superwechar.db.InviteMessgeDao;
 import cn.ucai.superwechar.db.UserDao;
 import cn.ucai.superwechar.runtimepermissions.PermissionsManager;
 import cn.ucai.superwechar.runtimepermissions.PermissionsResultAction;
+import cn.ucai.superwechar.widget.DMTabButton;
 import cn.ucai.superwechar.widget.DMTabHost;
 import cn.ucai.superwechar.widget.MFViewPager;
 
 @SuppressLint("NewApi")
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     protected static final String TAG = "MainActivity";
     @BindView(R.id.layout_viewpage)
@@ -75,8 +75,16 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.layout_tabhost)
     DMTabHost layoutTabhost;
     MainTabAdpter adapter;
+    @BindView(R.id.dmt_conver_btn)
+    DMTabButton dmtConverBtn;
+    @BindView(R.id.dmt_contact_btn)
+    DMTabButton dmtContactBtn;
+    @BindView(R.id.dmt_discover_btn)
+    DMTabButton dmtDiscoverBtn;
+    @BindView(R.id.dmt_setting_btn)
+    DMTabButton dmtSettingBtn;
 
-
+    private Fragment[] fragments;
 
 //    // textview for unread message count
 //    private TextView unreadLabel;
@@ -86,7 +94,7 @@ public class MainActivity extends BaseActivity {
 //    private Button[] mTabs;
 
     private ContactListFragment contactListFragment;
-    private Fragment[] fragments;
+
     private int index;
     private int currentTabIndex;
     // user logged into another device
@@ -123,7 +131,7 @@ public class MainActivity extends BaseActivity {
         inviteMessgeDao = new InviteMessgeDao(this);
         UserDao userDao = new UserDao(this);
         initFragment();
-
+        setListener();
         //register broadcast receiver to receive the change of group from DemoHelper
         registerBroadcastReceiver();
 
@@ -133,19 +141,70 @@ public class MainActivity extends BaseActivity {
         registerInternalDebugReceiver();
     }
 
+    private void setListener() {
+        dmtConverBtn.setOnClickListener(this);
+        dmtContactBtn.setOnClickListener(this);
+        dmtDiscoverBtn.setOnClickListener(this);
+        dmtSettingBtn.setOnClickListener(this);
+        setOnPageChangeListener();
+    }
+
+    private void setOnPageChangeListener() {
+        layoutViewpage.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                initDrawable();
+                switch (position) {
+                    case 0:
+                        dmtConverBtn.setSelected(true);
+                        break;
+                    case 1:
+                        dmtContactBtn.setSelected(true);
+                        break;
+                    case 2:
+                        dmtDiscoverBtn.setSelected(true);
+                        break;
+                    case 3:
+                        dmtSettingBtn.setSelected(true);
+                        break;
+                }
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+    }
+
+    private void initDrawable() {
+        dmtConverBtn.setSelected(false);
+        dmtContactBtn.setSelected(false);
+        dmtDiscoverBtn.setSelected(false);
+        dmtSettingBtn.setSelected(false);
+    }
+
 
     private void initFragment() {
         conversationListFragment = new ConversationListFragment();
         contactListFragment = new ContactListFragment();
         SettingsFragment settingFragment = new SettingsFragment();
-        fragments = new Fragment[]{conversationListFragment, contactListFragment, settingFragment};
+        DicoverFragment discoverFragment = new DicoverFragment();
+        fragments = new Fragment[]{conversationListFragment, contactListFragment, discoverFragment, settingFragment};
 
         adapter = new MainTabAdpter(getSupportFragmentManager());
         adapter.addFragment(conversationListFragment, getString(R.string.app_name));
         adapter.addFragment(contactListFragment, getString(R.string.contacts));
-        adapter.addFragment(settingFragment, getString(R.string.discover));
+        adapter.addFragment(discoverFragment, getString(R.string.discover));
         adapter.addFragment(settingFragment, getString(R.string.me));
         layoutViewpage.setAdapter(adapter);
+        dmtConverBtn.setSelected(true);
        /* getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, conversationListFragment)
                 .add(R.id.fragment_container, contactListFragment).hide(contactListFragment).show(conversationListFragment)
                 .commit();*/
@@ -343,6 +402,26 @@ public class MainActivity extends BaseActivity {
         };
         broadcastManager.registerReceiver(broadcastReceiver, intentFilter);
     }
+
+    @OnClick({R.id.dmt_conver_btn, R.id.dmt_contact_btn, R.id.dmt_discover_btn, R.id.dmt_setting_btn})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.dmt_conver_btn:
+                layoutViewpage.setCurrentItem(0);
+                break;
+            case R.id.dmt_contact_btn:
+                layoutViewpage.setCurrentItem(1);
+                break;
+            case R.id.dmt_discover_btn:
+                layoutViewpage.setCurrentItem(2);
+                break;
+            case R.id.dmt_setting_btn:
+                layoutViewpage.setCurrentItem(3);
+                break;
+        }
+    }
+
+
 
     public class MyContactListener implements EMContactListener {
         @Override

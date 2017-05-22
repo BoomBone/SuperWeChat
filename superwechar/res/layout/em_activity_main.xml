@@ -30,6 +30,7 @@
             android:layout_height="47dp"
             android:paddingBottom="1dp">
             <cn.ucai.superwechar.widget.DMTabButton
+                android:id="@+id/dmt_conver_btn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -37,6 +38,7 @@
                 app:tabtext="@string/app_name">
             </cn.ucai.superwechar.widget.DMTabButton>
             <cn.ucai.superwechar.widget.DMTabButton
+                android:id="@+id/dmt_contact_btn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -44,6 +46,7 @@
                 app:tabtext="@string/contacts">
             </cn.ucai.superwechar.widget.DMTabButton>
             <cn.ucai.superwechar.widget.DMTabButton
+                android:id="@+id/dmt_discover_btn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -51,6 +54,7 @@
                 app:tabtext="@string/discover">
             </cn.ucai.superwechar.widget.DMTabButton>
             <cn.ucai.superwechar.widget.DMTabButton
+                android:id="@+id/dmt_setting_btn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
