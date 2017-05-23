@@ -37,6 +37,8 @@ import com.easemob.redpacketui.utils.RPRedPacketUtil;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMOptions;
+
+import cn.ucai.easeui.widget.EaseTitleBar;
 import cn.ucai.superwechar.Constant;
 import cn.ucai.superwechar.SuperWeChatHelper;
 import cn.ucai.superwechar.SuperWeChatModel;
@@ -51,6 +53,7 @@ import cn.ucai.superwechar.ui.OfflinePushNickActivity;
 import cn.ucai.superwechar.ui.OfflinePushSettingsActivity;
 import cn.ucai.superwechar.ui.SetServersActivity;
 import cn.ucai.superwechar.ui.UserProfileActivity;
+import cn.ucai.superwechar.utils.MFGT;
 import cn.ucai.superwechar.utils.PreferenceManager;
 import cn.ucai.easeui.widget.EaseSwitchButton;
 
@@ -180,6 +183,13 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 		llDiagnose=(LinearLayout) findViewById(R.id.ll_diagnose);
 		pushNick=(LinearLayout) findViewById(R.id.ll_set_push_nick);
 		edit_custom_appkey = (EditText) findViewById(R.id.edit_custom_appkey);
+		EaseTitleBar titleBar = (EaseTitleBar) findViewById(R.id.title_bar);
+		titleBar.setLeftLayoutClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				MFGT.finish(SettingsActivity.this);
+			}
+		});
 
 		settingsModel = SuperWeChatHelper.getInstance().getModel();
 		chatOptions = EMClient.getInstance().getOptions();
