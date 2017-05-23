@@ -3,12 +3,14 @@ package cn.ucai.superwechar.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.FragmentActivity;
 
 import cn.ucai.superwechar.R;
 import cn.ucai.superwechar.ui.GuideActivity;
 import cn.ucai.superwechar.ui.LoginActivity;
 import cn.ucai.superwechar.ui.MainActivity;
 import cn.ucai.superwechar.ui.RegisterActivity;
+import cn.ucai.superwechar.ui.fragment.SettingsActivity;
 
 /**
  * Created by Administrator on 2017/5/19.
@@ -39,4 +41,7 @@ public class MFGT {
         activity.overridePendingTransition(R.anim.push_right_in,R.anim.push_right_out);
     }
 
+    public static void gotoSetting(Activity activity) {
+        startActivity(activity, SettingsActivity.class);
+    }
 }

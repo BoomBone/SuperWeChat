@@ -485,15 +485,7 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 	}
 
 	
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-    	super.onSaveInstanceState(outState);
-//        if(((MainActivity)SettingsActivity.this).isConflict){
-//        	outState.putBoolean("isConflict", true);
-//        }else if(((MainActivity)SettingsActivity.this).getCurrentAccountRemoved()){
-//        	outState.putBoolean(Constant.ACCOUNT_REMOVED, true);
-//        }
-    }
+
 
 	void sendLogThroughMail() {
 		String logPath = "";

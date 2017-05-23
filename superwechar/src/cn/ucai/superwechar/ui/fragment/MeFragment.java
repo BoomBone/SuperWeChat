@@ -20,8 +20,11 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import cn.ucai.easeui.domain.User;
 import cn.ucai.easeui.ui.EaseBaseFragment;
+import cn.ucai.superwechar.Constant;
 import cn.ucai.superwechar.R;
 import cn.ucai.superwechar.SuperWeChatHelper;
+import cn.ucai.superwechar.ui.MainActivity;
+import cn.ucai.superwechar.utils.MFGT;
 
 
 /**
@@ -86,6 +89,15 @@ public class MeFragment extends EaseBaseFragment {
         }
 
     }
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if(((MainActivity)getActivity()).isConflict){
+            outState.putBoolean("isConflict", true);
+        }else if(((MainActivity)getActivity()).getCurrentAccountRemoved()){
+            outState.putBoolean(Constant.ACCOUNT_REMOVED, true);
+        }
+    }
 
 
     @OnClick({R.id.layout_profile_view, R.id.tv_profile_money, R.id.tv_profile_settings})
@@ -96,7 +108,7 @@ public class MeFragment extends EaseBaseFragment {
             case R.id.tv_profile_money:
                 break;
             case R.id.tv_profile_settings:
-                startActivity(new Intent(getContext(), SettingsActivity.class));
+                MFGT.gotoSetting(getActivity());
                 break;
         }
     }
