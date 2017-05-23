@@ -21,6 +21,10 @@ public class MFGT {
         context.startActivity(new Intent(context, clazz));
         ((Activity)context).overridePendingTransition(R.anim.push_left_in,R.anim.push_left_out);
     }
+    private static void startActivity(Context context,Intent intent){
+        context.startActivity(intent);
+        ((Activity)context).overridePendingTransition(R.anim.push_left_in,R.anim.push_left_out);
+    }
 
     public static void gotoLogin(Activity activity) {
         startActivity(activity, LoginActivity.class);
@@ -43,5 +47,9 @@ public class MFGT {
 
     public static void gotoSetting(Activity activity) {
         startActivity(activity, SettingsActivity.class);
+    }
+    public static void logout(Activity activity){
+        startActivity(activity,new Intent(activity,LoginActivity.class)
+        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_SINGLE_TOP));
     }
 }

@@ -95,9 +95,7 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 	private TextView textview1, textview2;
 
 	private LinearLayout blacklistContainer;
-	
-	private LinearLayout userProfileContainer;
-	
+
 	/**
 	 * logout
 	 */
@@ -456,7 +454,8 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 						pd.dismiss();
 						// show login screen
 						( SettingsActivity.this).finish();
-						startActivity(new Intent(SettingsActivity.this, LoginActivity.class));
+						//startActivity(new Intent(SettingsActivity.this, LoginActivity.class));
+						MFGT.logout(SettingsActivity.this);
 						
 					}
 				});
