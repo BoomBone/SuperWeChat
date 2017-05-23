@@ -26,6 +26,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -215,6 +216,8 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 		llChange.setOnClickListener(this);
 		rl_mail_log.setOnClickListener(this);
 
+		getWindow().getAttributes().softInputMode = WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN;
+
 		// the vibrate and sound notification are allowed or not?
 		if (settingsModel.getSettingMsgNotification()) {
 			notifySwitch.openSwitch();
@@ -296,10 +299,9 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 			}
 		});
 	}
-	
-	
 
-	
+
+
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
