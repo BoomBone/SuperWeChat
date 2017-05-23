@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.easemob.redpacketui.utils.RPRedPacketUtil;
+import com.hyphenate.chat.EMClient;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,6 +26,7 @@ import cn.ucai.superwechar.Constant;
 import cn.ucai.superwechar.R;
 import cn.ucai.superwechar.SuperWeChatHelper;
 import cn.ucai.superwechar.ui.MainActivity;
+import cn.ucai.superwechar.ui.UserProfileActivity;
 import cn.ucai.superwechar.utils.MFGT;
 
 
@@ -104,8 +107,14 @@ public class MeFragment extends EaseBaseFragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.layout_profile_view:
+                startActivity(new Intent(getActivity(), UserProfileActivity.class).putExtra("setting", true)
+                        .putExtra("username", EMClient.getInstance().getCurrentUser()));
                 break;
             case R.id.tv_profile_money:
+                //支付宝版红包SDK调用如下方法进入红包记录页面
+                RPRedPacketUtil.getInstance().startRecordActivity(getActivity());
+                //钱包版红包SDK调用如下方法进入零钱页面
+//				RPRedPacketUtil.getInstance().startChangeActivity(SettingsActivity.this);
                 break;
             case R.id.tv_profile_settings:
                 MFGT.gotoSetting(getActivity());
