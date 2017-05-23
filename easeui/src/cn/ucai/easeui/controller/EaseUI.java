@@ -11,6 +11,7 @@ import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMOptions;
 import cn.ucai.easeui.domain.EaseEmojicon;
 import cn.ucai.easeui.domain.EaseUser;
+import cn.ucai.easeui.domain.User;
 import cn.ucai.easeui.model.EaseAtMessageHelper;
 import cn.ucai.easeui.model.EaseNotifier;
 
@@ -32,7 +33,8 @@ public final class EaseUI {
      * user profile provider
      */
     private EaseUserProfileProvider userProvider;
-    
+    private AppUserProfileProvider appUserProvider;
+
     private EaseSettingsProvider settingsProvider;
     
     /**
@@ -187,7 +189,11 @@ public final class EaseUI {
     public void setUserProfileProvider(EaseUserProfileProvider userProvider){
         this.userProvider = userProvider;
     }
-    
+    /*-----------------------------------------------------------------------*/
+    public void setAppUserProfileProvider(AppUserProfileProvider userProvider){
+        this.appUserProvider = userProvider;
+    }
+
     /**
      * get user profile provider
      * @return
@@ -195,7 +201,11 @@ public final class EaseUI {
     public EaseUserProfileProvider getUserProfileProvider(){
         return userProvider;
     }
-    
+    /*----------------------------------------------------------------------------*/
+    public AppUserProfileProvider getAppUserProfileProvider(){
+        return appUserProvider;
+    }
+
     public void setSettingsProvider(EaseSettingsProvider settingsProvider){
         this.settingsProvider = settingsProvider;
     }
@@ -247,7 +257,17 @@ public final class EaseUI {
          */
         EaseUser getUser(String username);
     }
-    
+    /*-----------------------------------------*/
+    public interface AppUserProfileProvider {
+        /**
+         * return EaseUser for input username
+         * @param username
+         * @return
+         */
+        User getUser(String username);
+    }
+
+
     /**
      * Emojicon provider
      *

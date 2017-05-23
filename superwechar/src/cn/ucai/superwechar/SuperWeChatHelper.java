@@ -28,6 +28,8 @@ import com.hyphenate.chat.EMMessage.Status;
 import com.hyphenate.chat.EMMessage.Type;
 import com.hyphenate.chat.EMOptions;
 import com.hyphenate.chat.EMTextMessageBody;
+
+import cn.ucai.easeui.domain.User;
 import cn.ucai.superwechar.db.SuperWeChatDBManager;
 import cn.ucai.superwechar.db.InviteMessgeDao;
 import cn.ucai.superwechar.db.UserDao;
@@ -40,6 +42,7 @@ import cn.ucai.superwechar.ui.ChatActivity;
 import cn.ucai.superwechar.ui.MainActivity;
 import cn.ucai.superwechar.ui.VideoCallActivity;
 import cn.ucai.superwechar.ui.VoiceCallActivity;
+import cn.ucai.superwechar.utils.CommonUtils;
 import cn.ucai.superwechar.utils.PreferenceManager;
 import cn.ucai.easeui.controller.EaseUI;
 import cn.ucai.easeui.controller.EaseUI.EaseEmojiconInfoProvider;
@@ -271,6 +274,14 @@ public class SuperWeChatHelper {
             @Override
             public EaseUser getUser(String username) {
                 return getUserInfo(username);
+            }
+        });
+        /*--------------------------------------------------------------*/
+        easeUI.setAppUserProfileProvider(new EaseUI.AppUserProfileProvider() {
+
+            @Override
+            public User getUser(String username) {
+                return getAppUserInfo(username);
             }
         });
 
@@ -836,7 +847,27 @@ public class SuperWeChatHelper {
         }
         return user;
 	}
-	
+	/*-----------------------------------------------------------------------------*/
+	private User getAppUserInfo(String username){
+		// To get instance of EaseUser, here we get it from the user list in memory
+		// You'd better cache it if you get it from your server
+        User user = null;
+        if(username.equals(EMClient.getInstance().getCurrentUser()))
+            return getUserProfileManager().getCurrentAppUserInfo();
+//        user = getContactList().get(username);
+//        if(user == null && getRobotList() != null){
+//            user = getRobotList().get(username);
+//        }
+//
+//        // if user is not in your contacts, set inital letter for him/her
+//        if(user == null){
+//            user = new User(username);
+//            CommonUtils.setUserInitialLetter(user);
+//            CommonUtils.setUserInitialLetter(user);
+//        }
+        return user;
+	}
+
 	 /**
      * Global listener
      * If this event already handled by an activity, you don't need handle it again

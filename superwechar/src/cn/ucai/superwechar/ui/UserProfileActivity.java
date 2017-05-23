@@ -63,8 +63,8 @@ public class UserProfileActivity extends BaseActivity {
         User user = SuperWeChatHelper.getInstance().getUserProfileManager().getCurrentAppUserInfo();
         if (user != null) {
             tvUserinfoName.setText("微信号: " + EMClient.getInstance().getCurrentUser());
-            EaseUserUtils.setUserNick(user.getMUserName(), tvUserinfoNick);
-            EaseUserUtils.setUserAvatar(this, user.getMUserName(), ivUserinfoAvatar);
+            EaseUserUtils.setAppUserNick(user.getMUserName(), tvUserinfoNick);
+            EaseUserUtils.setAppUserAvatar(this, user.getMUserName(), ivUserinfoAvatar);
 //            asyncFetchUserInfo(user.getMUserName());
         }
         titleBar.setLeftLayoutClickListener(new View.OnClickListener() {
