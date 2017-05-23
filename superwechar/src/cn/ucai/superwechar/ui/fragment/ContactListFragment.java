@@ -11,7 +11,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cn.ucai.superwechar.ui;
+package cn.ucai.superwechar.ui.fragment;
 
 import java.util.Hashtable;
 import java.util.Map;
@@ -21,6 +21,12 @@ import cn.ucai.superwechar.SuperWeChatHelper;
 import cn.ucai.superwechar.R;
 import cn.ucai.superwechar.db.InviteMessgeDao;
 import cn.ucai.superwechar.db.UserDao;
+import cn.ucai.superwechar.ui.AddContactActivity;
+import cn.ucai.superwechar.ui.ChatActivity;
+import cn.ucai.superwechar.ui.GroupsActivity;
+import cn.ucai.superwechar.ui.NewFriendsMsgActivity;
+import cn.ucai.superwechar.ui.PublicChatRoomsActivity;
+import cn.ucai.superwechar.ui.RobotsActivity;
 import cn.ucai.superwechar.widget.ContactItemView;
 import cn.ucai.easeui.domain.EaseUser;
 import cn.ucai.easeui.ui.EaseContactListFragment;

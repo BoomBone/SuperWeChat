@@ -32,7 +32,6 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import com.easemob.redpacketsdk.constant.RPConstant;
@@ -52,7 +51,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import cn.easemob.redpacket.utils.RedPacketUtil;
 import cn.ucai.easeui.utils.EaseCommonUtils;
 import cn.ucai.superwechar.Constant;
@@ -63,6 +61,10 @@ import cn.ucai.superwechar.db.InviteMessgeDao;
 import cn.ucai.superwechar.db.UserDao;
 import cn.ucai.superwechar.runtimepermissions.PermissionsManager;
 import cn.ucai.superwechar.runtimepermissions.PermissionsResultAction;
+import cn.ucai.superwechar.ui.fragment.ContactListFragment;
+import cn.ucai.superwechar.ui.fragment.ConversationListFragment;
+import cn.ucai.superwechar.ui.fragment.DicoverFragment;
+import cn.ucai.superwechar.ui.fragment.MeFragment;
 import cn.ucai.superwechar.widget.DMTabButton;
 import cn.ucai.superwechar.widget.DMTabHost;
 import cn.ucai.superwechar.widget.MFViewPager;
@@ -152,15 +154,15 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     private void initFragment() {
         conversationListFragment = new ConversationListFragment();
         contactListFragment = new ContactListFragment();
-        SettingsFragment settingFragment = new SettingsFragment();
+        MeFragment meFragment = new MeFragment();
         discoverFragment = new DicoverFragment();
-        fragments = new Fragment[]{conversationListFragment, contactListFragment, discoverFragment, settingFragment};
+        fragments = new Fragment[]{conversationListFragment, contactListFragment, discoverFragment,meFragment };
 
         adapter = new MainTabAdpter(getSupportFragmentManager());
         adapter.addFragment(conversationListFragment, getString(R.string.app_name));
         adapter.addFragment(contactListFragment, getString(R.string.contacts));
         adapter.addFragment(discoverFragment, getString(R.string.discover));
-        adapter.addFragment(settingFragment, getString(R.string.me));
+        adapter.addFragment(meFragment, getString(R.string.me));
         layoutViewpage.setAdapter(adapter);
         layoutTabhost.setChecked(0);
        /* getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, conversationListFragment)

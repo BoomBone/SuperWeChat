@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import cn.ucai.superwechar.R;
 import cn.ucai.superwechar.runtimepermissions.PermissionsManager;
 import cn.ucai.easeui.ui.EaseChatFragment;
+import cn.ucai.superwechar.ui.fragment.ChatFragment;
 
 import com.hyphenate.util.EasyUtils;
 

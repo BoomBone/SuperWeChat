@@ -1,4 +1,4 @@
-package cn.ucai.superwechar.ui;
+package cn.ucai.superwechar.ui.fragment;
 
 import android.content.Intent;
 import android.view.ContextMenu;
@@ -26,6 +26,8 @@ import cn.ucai.easeui.ui.EaseConversationListFragment;
 import com.hyphenate.util.NetUtils;
 
 import cn.ucai.easeui.widget.EaseConversationList;
+import cn.ucai.superwechar.ui.ChatActivity;
+import cn.ucai.superwechar.ui.MainActivity;
 
 public class ConversationListFragment extends EaseConversationListFragment{
 

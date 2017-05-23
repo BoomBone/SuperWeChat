@@ -1,4 +1,4 @@
-package cn.ucai.superwechar.ui;
+package cn.ucai.superwechar.ui.fragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +33,7 @@ import android.widget.Toast;
 import cn.ucai.superwechar.BuildConfig;
 import cn.ucai.superwechar.R;
 import cn.ucai.superwechar.domain.VideoEntity;
+import cn.ucai.superwechar.ui.RecorderVideoActivity;
 import cn.ucai.superwechar.video.util.ImageCache;
 import cn.ucai.superwechar.video.util.ImageResizer;
 import cn.ucai.superwechar.video.util.Utils;

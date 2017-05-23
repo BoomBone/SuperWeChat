@@ -1,4 +1,4 @@
-package cn.ucai.superwechar.ui;
+package cn.ucai.superwechar.ui.fragment;
 
 import android.app.Activity;
 import android.content.ClipData;
@@ -36,6 +36,16 @@ import cn.ucai.superwechar.SuperWeChatHelper;
 import cn.ucai.superwechar.R;
 import cn.ucai.superwechar.domain.EmojiconExampleGroupData;
 import cn.ucai.superwechar.domain.RobotUser;
+import cn.ucai.superwechar.ui.ChatRoomDetailsActivity;
+import cn.ucai.superwechar.ui.ContextMenuActivity;
+import cn.ucai.superwechar.ui.ForwardMessageActivity;
+import cn.ucai.superwechar.ui.GroupDetailsActivity;
+import cn.ucai.superwechar.ui.ImageGridActivity;
+import cn.ucai.superwechar.ui.MainActivity;
+import cn.ucai.superwechar.ui.PickAtUserActivity;
+import cn.ucai.superwechar.ui.UserProfileActivity;
+import cn.ucai.superwechar.ui.VideoCallActivity;
+import cn.ucai.superwechar.ui.VoiceCallActivity;
 import cn.ucai.superwechar.widget.ChatRowVoiceCall;
 import cn.ucai.easeui.EaseConstant;
 import cn.ucai.easeui.ui.EaseChatFragment;
