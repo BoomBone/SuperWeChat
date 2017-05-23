@@ -210,7 +210,8 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 		ll_call_option.setOnClickListener(this);
 		rl_mail_log.setOnClickListener(this);
 
-		getWindow().getAttributes().softInputMode = WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN;
+		hideSoftKeyboard();
+
 
 		// the vibrate and sound notification are allowed or not?
 		if (settingsModel.getSettingMsgNotification()) {
