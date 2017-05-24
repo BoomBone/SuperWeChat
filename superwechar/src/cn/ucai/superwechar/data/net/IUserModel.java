@@ -2,6 +2,8 @@ package cn.ucai.superwechar.data.net;
 
 import android.content.Context;
 
+import java.io.File;
+
 import cn.ucai.superwechar.data.OkHttpUtils;
 
 /**
@@ -19,5 +21,8 @@ public interface IUserModel  {
     void loadUserInfo(Context context, String username, OnCompleteListener<String> listener);
 
     void updateNick(Context context, String username, String usernick, OnCompleteListener<String> listener);
+
+    void updateAvatar(Context context, String username, String avatarType,
+                      File file, OnCompleteListener<String> listener);
 
 }
