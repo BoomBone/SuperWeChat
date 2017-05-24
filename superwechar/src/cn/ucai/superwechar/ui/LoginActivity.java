@@ -64,6 +64,8 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setContentView(R.layout.em_activity_login);
+        ButterKnife.bind(this);
         super.onCreate(savedInstanceState);
 
         // enter the main activity if already logged in
@@ -73,8 +75,8 @@ public class LoginActivity extends BaseActivity {
 
             return;
         }
-        setContentView(R.layout.em_activity_login);
-        ButterKnife.bind(this);
+
+
         initView();
         setListener();
     }
@@ -246,8 +248,8 @@ public class LoginActivity extends BaseActivity {
         }
     }
 
-    @OnClick(R.id.img_back)
-    public void onBackClicked() {
-        MFGT.finish(LoginActivity.this);
-    }
+//    @OnClick(R.id.img_back)
+//    public void onBackClicked() {
+//        MFGT.finish(LoginActivity.this);
+//    }
 }
