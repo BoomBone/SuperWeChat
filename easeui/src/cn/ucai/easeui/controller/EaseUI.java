@@ -33,7 +33,6 @@ public final class EaseUI {
      * user profile provider
      */
     private EaseUserProfileProvider userProvider;
-    private AppUserProfileProvider appUserProvider;
 
     private EaseSettingsProvider settingsProvider;
     
@@ -184,14 +183,10 @@ public final class EaseUI {
     
     /**
      * set user profile provider
-     * @param provider
+     * @param userProvider
      */
     public void setUserProfileProvider(EaseUserProfileProvider userProvider){
         this.userProvider = userProvider;
-    }
-    /*-----------------------------------------------------------------------*/
-    public void setAppUserProfileProvider(AppUserProfileProvider userProvider){
-        this.appUserProvider = userProvider;
     }
 
     /**
@@ -201,10 +196,7 @@ public final class EaseUI {
     public EaseUserProfileProvider getUserProfileProvider(){
         return userProvider;
     }
-    /*----------------------------------------------------------------------------*/
-    public AppUserProfileProvider getAppUserProfileProvider(){
-        return appUserProvider;
-    }
+
 
     public void setSettingsProvider(EaseSettingsProvider settingsProvider){
         this.settingsProvider = settingsProvider;
@@ -256,16 +248,11 @@ public final class EaseUI {
          * @return
          */
         EaseUser getUser(String username);
+
+        User getAppUser(String username);
     }
-    /*-----------------------------------------*/
-    public interface AppUserProfileProvider {
-        /**
-         * return EaseUser for input username
-         * @param username
-         * @return
-         */
-        User getUser(String username);
-    }
+
+
 
 
     /**

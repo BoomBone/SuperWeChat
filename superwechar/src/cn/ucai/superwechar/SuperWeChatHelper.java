@@ -274,16 +274,22 @@ public class SuperWeChatHelper {
             @Override
             public EaseUser getUser(String username) {
                 return getUserInfo(username);
+
             }
-        });
-        /*--------------------------------------------------------------*/
-        easeUI.setAppUserProfileProvider(new EaseUI.AppUserProfileProvider() {
 
             @Override
-            public User getUser(String username) {
+            public User getAppUser(String username) {
                 return getAppUserInfo(username);
             }
         });
+//        /*--------------------------------------------------------------*/
+//        easeUI.setAppUserProfileProvider(new EaseUI.AppUserProfileProvider() {
+//
+//            @Override
+//            public User getUser(String username) {
+//
+//            }
+//        });
 
         //set options 
         easeUI.setSettingsProvider(new EaseSettingsProvider() {
@@ -865,7 +871,7 @@ public class SuperWeChatHelper {
 //            CommonUtils.setUserInitialLetter(user);
 //            CommonUtils.setUserInitialLetter(user);
 //        }
-        return user;
+        return null;
 	}
 
 	 /**
