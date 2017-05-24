@@ -50,10 +50,10 @@ import cn.ucai.superwechar.utils.MFGT;
 public class LoginActivity extends BaseActivity {
     private static final String TAG = "LoginActivity";
     public static final int REQUEST_CODE_SETNICK = 1;
-    @BindView(R.id.img_back)
-    ImageView imgBack;
-    @BindView(R.id.txt_title)
-    TextView txtTitle;
+//    @BindView(R.id.img_back)
+//    ImageView imgBack;
+//    @BindView(R.id.txt_title)
+//    TextView txtTitle;
     @BindView(R.id.et_username)
     EditText usernameEditText;
     @BindView(R.id.et_password)
@@ -116,8 +116,15 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void initView() {
-        txtTitle.setVisibility(View.VISIBLE);
-        imgBack.setVisibility(View.VISIBLE);
+//        txtTitle.setVisibility(View.VISIBLE);
+//        imgBack.setVisibility(View.VISIBLE);
+        titleBar.setLeftLayoutClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
     }
 
     /**
