@@ -1,11 +1,13 @@
 package cn.ucai.superwechar.parse;
 
 import android.content.Context;
+import android.content.Intent;
 
 import com.hyphenate.EMValueCallBack;
 import com.hyphenate.chat.EMClient;
 
 import cn.ucai.easeui.domain.User;
+import cn.ucai.superwechar.I;
 import cn.ucai.superwechar.SuperWeChatHelper;
 import cn.ucai.superwechar.data.Result;
 import cn.ucai.superwechar.data.net.IUserModel;
@@ -16,6 +18,7 @@ import cn.ucai.superwechar.utils.PreferenceManager;
 import cn.ucai.easeui.domain.EaseUser;
 import cn.ucai.superwechar.utils.ResultUtils;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -167,8 +170,38 @@ public class UserProfileManager {
 		}
 		return avatarUrl;
 	}
+    public void uploadAppUserAvatar(File file){
+        model.updateAvatar(appContext, EMClient.getInstance().getCurrentUser(), I.AVATAR_TYPE_USER_PATH,
+                file, new OnCompleteListener<String>() {
+                    @Override
+                    public void onSuccess(String s) {
+                        boolean isSuccess = false;
+                        if (s!=null){
+                            Result<User> result = ResultUtils.getResultFromJson(s, User.class);
+                            if (result!=null){
+                                if (result.isRetMsg()){
+                                    User user = result.getRetData();
+                                    if (user!=null){
+                                        isSuccess = true;
+                                        setCurrentAppUserAvatar(user.getAvatar());
+                                    }
+                                }
+                            }
+                        }
+                        appContext.sendBroadcast(new Intent(I.BROADCAST_UPDATE_AVATAR)
+                                .putExtra(I.RESULT_UPDATE_AVATAR,isSuccess));
+                    }
 
-	public void asyncGetCurrentUserInfo() {
+                    @Override
+                    public void onError(String error) {
+                        appContext.sendBroadcast(new Intent(I.BROADCAST_UPDATE_AVATAR)
+                                .putExtra(I.RESULT_UPDATE_AVATAR,false));
+                    }
+                });
+    }
+
+
+    public void asyncGetCurrentUserInfo() {
 		ParseManager.getInstance().asyncGetCurrentUserInfo(new EMValueCallBack<EaseUser>() {
 
 			@Override
