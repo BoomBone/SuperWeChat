@@ -22,6 +22,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import cn.ucai.easeui.domain.User;
 import cn.ucai.easeui.ui.EaseBaseFragment;
+import cn.ucai.easeui.utils.EaseUserUtils;
 import cn.ucai.superwechar.Constant;
 import cn.ucai.superwechar.R;
 import cn.ucai.superwechar.SuperWeChatHelper;
@@ -43,6 +44,7 @@ public class MeFragment extends EaseBaseFragment {
     @BindView(R.id.tv_profile_username)
     TextView tvProfileUsername;
     Unbinder unbinder;
+
     public MeFragment() {
         // Required empty public constructor
     }
@@ -67,21 +69,11 @@ public class MeFragment extends EaseBaseFragment {
 
     }
 
+
     @Override
     protected void setUpView() {
         titleBar.setRightImageResource(R.drawable.em_add);
         titleBar.setTitle(getString(R.string.me));
-        User user = SuperWeChatHelper.getInstance().getUserProfileManager().getCurrentAppUserInfo();
-        if (user!=null){
-            tvProfileNickname.setText(user.getMUserNick());
-            tvProfileUsername.setText("微信号: " +user.getMUserName());
-            if(!TextUtils.isEmpty(user.getAvatar())){
-                Glide.with(getContext()).load(user.getAvatar()).placeholder(R.drawable.em_default_avatar).into(ivProfileAvatar);
-            }else{
-                Glide.with(getContext()).load(R.drawable.em_default_avatar).into(ivProfileAvatar);
-            }
-        }
-
     }
 
     @Override
@@ -92,12 +84,13 @@ public class MeFragment extends EaseBaseFragment {
         }
 
     }
+
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        if(((MainActivity)getActivity()).isConflict){
+        if (((MainActivity) getActivity()).isConflict) {
             outState.putBoolean("isConflict", true);
-        }else if(((MainActivity)getActivity()).getCurrentAccountRemoved()){
+        } else if (((MainActivity) getActivity()).getCurrentAccountRemoved()) {
             outState.putBoolean(Constant.ACCOUNT_REMOVED, true);
         }
     }
@@ -119,6 +112,21 @@ public class MeFragment extends EaseBaseFragment {
             case R.id.tv_profile_settings:
                 MFGT.gotoSetting(getActivity());
                 break;
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadUserInfo();
+    }
+
+    private void loadUserInfo() {
+        String username = EMClient.getInstance().getCurrentUser();
+        if (username != null) {
+            tvProfileUsername.setText("微信号: " + username);
+            EaseUserUtils.setAppUserNick(username, tvProfileNickname);
+            EaseUserUtils.setAppUserAvatar(getContext(), username, ivProfileAvatar);
         }
     }
 }
