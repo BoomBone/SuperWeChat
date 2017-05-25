@@ -11,22 +11,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cn.ucai.superwechar.ui.fragment;
+package cn.ucai.superwechar.ui;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -34,26 +30,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.easemob.redpacketui.utils.RPRedPacketUtil;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMOptions;
 
 import cn.ucai.easeui.widget.EaseTitleBar;
-import cn.ucai.superwechar.Constant;
 import cn.ucai.superwechar.SuperWeChatHelper;
 import cn.ucai.superwechar.SuperWeChatModel;
 import cn.ucai.superwechar.R;
-import cn.ucai.superwechar.ui.BaseActivity;
-import cn.ucai.superwechar.ui.BlacklistActivity;
-import cn.ucai.superwechar.ui.CallOptionActivity;
-import cn.ucai.superwechar.ui.DiagnoseActivity;
-import cn.ucai.superwechar.ui.LoginActivity;
-import cn.ucai.superwechar.ui.MainActivity;
-import cn.ucai.superwechar.ui.OfflinePushNickActivity;
-import cn.ucai.superwechar.ui.OfflinePushSettingsActivity;
-import cn.ucai.superwechar.ui.SetServersActivity;
-import cn.ucai.superwechar.ui.UserProfileActivity;
 import cn.ucai.superwechar.utils.MFGT;
 import cn.ucai.superwechar.utils.PreferenceManager;
 import cn.ucai.easeui.widget.EaseSwitchButton;
