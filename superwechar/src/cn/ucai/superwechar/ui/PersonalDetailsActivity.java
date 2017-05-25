@@ -12,6 +12,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.ucai.easeui.domain.User;
+import cn.ucai.easeui.utils.EaseUserUtils;
 import cn.ucai.superwechar.I;
 import cn.ucai.superwechar.R;
 import cn.ucai.superwechar.SuperWeChatHelper;
@@ -54,19 +55,7 @@ public class PersonalDetailsActivity extends BaseActivity {
     private void showInfo() {
         tvUserinfoName.setText(user.getMUserName());
         tvUserinfoNick.setText(user.getMUserNick());
-        if (user != null && user.getAvatar() != null) {
-            try {
-                int avatarResId = Integer.parseInt(user.getAvatar());
-                Glide.with(PersonalDetailsActivity.this).load(avatarResId).into(profileImage);
-            } catch (Exception e) {
-                //use default avatar
-                Glide.with(PersonalDetailsActivity.this).load(user.getAvatar()).
-                        diskCacheStrategy(DiskCacheStrategy.ALL).
-                        placeholder(cn.ucai.easeui.R.drawable.ease_default_avatar).into(profileImage);
-            }
-        } else {
-            Glide.with(PersonalDetailsActivity.this).load(cn.ucai.easeui.R.drawable.ease_default_avatar).into(profileImage);
-        }
+        EaseUserUtils.setAppUserAvatar(PersonalDetailsActivity.this,user,profileImage);
         showButton(SuperWeChatHelper.getInstance().getContactList().containsKey(user.getMUserName()));
     }
 
