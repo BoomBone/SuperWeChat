@@ -22,6 +22,8 @@ public class EaseTitleBar extends RelativeLayout{
     protected RelativeLayout rightLayout;
     protected ImageView rightImage;
     protected TextView titleView;
+    protected TextView leftText;
+    protected TextView rightText;
     protected RelativeLayout titleLayout;
 
     public EaseTitleBar(Context context, AttributeSet attrs, int defStyle) {
@@ -45,6 +47,8 @@ public class EaseTitleBar extends RelativeLayout{
         rightLayout = (RelativeLayout) findViewById(R.id.right_layout);
         rightImage = (ImageView) findViewById(R.id.right_image);
         titleView = (TextView) findViewById(R.id.title);
+        leftText = (TextView) findViewById(R.id.left_text);
+        rightText = (TextView) findViewById(R.id.right_text);
         titleLayout = (RelativeLayout) findViewById(R.id.root);
         
         parseStyle(context, attrs);
