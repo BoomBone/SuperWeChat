@@ -55,6 +55,7 @@ public class AddContactActivity extends BaseActivity {
             searchedUserLayout = (RelativeLayout) findViewById(R.id.ll_user);
             model = new UserModel();
             initView();
+            showLeftBack();
 
     }
 
@@ -63,12 +64,6 @@ public class AddContactActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 searchContact();
-            }
-        });
-        titleBar.getLeftLayout().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MFGT.finish(AddContactActivity.this);
             }
         });
     }

@@ -46,11 +46,29 @@ public class EaseBaseActivity extends FragmentActivity {
                 finish();
                 return;
             }
+
         }
         
         inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         titleBar = (EaseTitleBar) findViewById(R.id.title_bar);
     }
+
+    public void showLeftBack() {
+        if(titleBar!=null){
+            if(titleBar.getLeftImage()){
+                titleBar.getLeftLayout().setEnabled(true);
+                titleBar.getLeftLayout().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        finish();
+                    }
+                });
+            }else{
+                titleBar.getLeftLayout().setEnabled(false);
+            }
+        }
+    }
+
     public void showTitleBar(){
         if(titleBar != null){
             titleBar.setVisibility(View.VISIBLE);

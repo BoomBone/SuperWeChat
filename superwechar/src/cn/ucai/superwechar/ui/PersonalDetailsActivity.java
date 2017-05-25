@@ -39,6 +39,7 @@ public class PersonalDetailsActivity extends BaseActivity {
         ButterKnife.bind(this);
         super.onCreate(savedInstanceState);
         initData();
+        showLeftBack();
     }
 
     private void initData() {
