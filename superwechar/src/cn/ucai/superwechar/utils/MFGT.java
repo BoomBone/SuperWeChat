@@ -4,10 +4,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
+import cn.ucai.easeui.domain.User;
+import cn.ucai.superwechar.I;
 import cn.ucai.superwechar.R;
+import cn.ucai.superwechar.ui.AddContactActivity;
 import cn.ucai.superwechar.ui.GuideActivity;
 import cn.ucai.superwechar.ui.LoginActivity;
 import cn.ucai.superwechar.ui.MainActivity;
+import cn.ucai.superwechar.ui.PersonalDetailsActivity;
 import cn.ucai.superwechar.ui.RegisterActivity;
 import cn.ucai.superwechar.ui.SettingsActivity;
 
@@ -50,5 +54,11 @@ public class MFGT {
     public static void logout(Activity activity){
         startActivity(activity,new Intent(activity,LoginActivity.class)
         .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_SINGLE_TOP));
+    }
+
+    public static void gotoProfile(Activity activity, User user) {
+        startActivity(activity,new Intent(activity, PersonalDetailsActivity.class)
+                .putExtra(I.User.TABLE_NAME,user));
+
     }
 }

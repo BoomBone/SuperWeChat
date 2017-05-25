@@ -98,22 +98,24 @@ public class AddContactActivity extends BaseActivity {
             @Override
             public void onSuccess(String s) {
                 boolean isSuccess = false;
+                User user = null;
                 if(s!=null){
                     Result<User> result = ResultUtils.getResultFromJson(s, User.class);
                     if(result!=null&&result.isRetMsg()){
-                        User user = result.getRetData();
+                        user = result.getRetData();
                         if(user!=null){
                             isSuccess = true;
                         }
                     }
                 }
-                showSearchResult(isSuccess);
+
+                showSearchResult(isSuccess,user);
 
             }
 
             @Override
             public void onError(String error) {
-                showSearchResult(false);
+                showSearchResult(false,null);
             }
         });
     }
@@ -128,19 +130,16 @@ public class AddContactActivity extends BaseActivity {
         }
     }
 
-    private void showSearchResult(boolean isSuccess) {
+    private void showSearchResult(boolean isSuccess,User user) {
         dissmissDialog();
         searchedUserLayout.setVisibility(isSuccess?View.GONE:View.VISIBLE);
         if(isSuccess){
-
+            MFGT.gotoProfile(AddContactActivity.this,user);
         }
 
     }
 
-    /**
-     *  add contact
-     * @param view
-     */
+
 //    public void addContact(View view) {
 //        if (EMClient.getInstance().getCurrentUser().equals(nameText.getText().toString())) {
 //            new EaseAlertDialog(this, R.string.not_add_myself).show();
