@@ -18,6 +18,7 @@ import java.util.Map;
 
 import android.content.Context;
 
+import cn.ucai.easeui.domain.User;
 import cn.ucai.superwechar.domain.RobotUser;
 import cn.ucai.easeui.domain.EaseUser;
 
@@ -98,4 +99,16 @@ public class UserDao {
     public void saveRobotUser(List<RobotUser> robotList){
     	SuperWeChatDBManager.getInstance().saveRobotList(robotList);
     }
+	/*============================================================*/
+    public void saveAppContactList(List<User> contactList) {
+		SuperWeChatDBManager.getInstance().saveAppContactList(contactList);
+    }
+
+	public Map<String,User> getAppContactList() {
+		return SuperWeChatDBManager.getInstance().getAppContactList();
+	}
+
+	public void saveAppContact(User user) {
+		SuperWeChatDBManager.getInstance().saveAppContact(user);
+	}
 }

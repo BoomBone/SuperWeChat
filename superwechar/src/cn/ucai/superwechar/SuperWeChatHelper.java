@@ -87,6 +87,7 @@ public class SuperWeChatHelper {
     protected EMMessageListener messageListener = null;
 
 	private Map<String, EaseUser> contactList;
+	private Map<String, User> appContactList;
 
 	private Map<String, RobotUser> robotList;
 
@@ -282,14 +283,6 @@ public class SuperWeChatHelper {
                 return getAppUserInfo(username);
             }
         });
-//        /*--------------------------------------------------------------*/
-//        easeUI.setAppUserProfileProvider(new EaseUI.AppUserProfileProvider() {
-//
-//            @Override
-//            public User getUser(String username) {
-//
-//            }
-//        });
 
         //set options 
         easeUI.setSettingsProvider(new EaseSettingsProvider() {
@@ -860,18 +853,15 @@ public class SuperWeChatHelper {
         User user = null;
         if(username.equals(EMClient.getInstance().getCurrentUser()))
             return getUserProfileManager().getCurrentAppUserInfo();
-//        user = getContactList().get(username);
-//        if(user == null && getRobotList() != null){
-//            user = getRobotList().get(username);
-//        }
-//
-//        // if user is not in your contacts, set inital letter for him/her
-//        if(user == null){
-//            user = new User(username);
-//            CommonUtils.setUserInitialLetter(user);
-//            CommonUtils.setUserInitialLetter(user);
-//        }
-        return null;
+        user = getAppContactList().get(username);
+
+
+        // if user is not in your contacts, set inital letter for him/her
+        if(user == null){
+            user = new User(username);
+            EaseCommonUtils.setAppUserInitialLetter(user);
+        }
+        return user;
 	}
 
 	 /**
@@ -1016,7 +1006,18 @@ public class SuperWeChatHelper {
 		
 		contactList = aContactList;
 	}
-	
+	/*======================setAppContactList========================*/
+	public void setAppContactList(Map<String, User> aContactList) {
+		if(aContactList == null){
+		    if (appContactList != null) {
+                appContactList.clear();
+		    }
+			return;
+		}
+
+        appContactList = aContactList;
+	}
+
 	/**
      * save single contact 
      */
@@ -1024,7 +1025,15 @@ public class SuperWeChatHelper {
     	contactList.put(user.getUsername(), user);
     	superWeChatModel.saveContact(user);
     }
-    
+
+
+    /*===========saveAppContact===================*/
+
+    public void saveAppContact(User user){
+        appContactList.put(user.getMUserName(), user);
+    	superWeChatModel.saveAppContact(user);
+    }
+
     /**
      * get contact list
      *
@@ -1042,7 +1051,21 @@ public class SuperWeChatHelper {
         
         return contactList;
     }
-    
+
+    /*=======================================================*/
+    public Map<String, User> getAppContactList() {
+        if (isLoggedIn() && appContactList == null) {
+            appContactList = superWeChatModel.getAppContactList();
+        }
+
+        // return a empty non-null object to avoid app crash
+        if(appContactList == null){
+        	return new Hashtable<String, User>();
+        }
+
+        return appContactList;
+    }
+
     /**
      * set current username
      * @param username
@@ -1085,6 +1108,16 @@ public class SuperWeChatHelper {
          ArrayList<EaseUser> mList = new ArrayList<EaseUser>();
          mList.addAll(contactList.values());
          superWeChatModel.saveContactList(mList);
+    }
+
+    /*=================================================================*/
+    public void updateAppContactList(List<User> contactInfoList) {
+         for (User u : contactInfoList) {
+             appContactList.put(u.getMUserName(), u);
+         }
+         ArrayList<User> mList = new ArrayList<User>();
+         mList.addAll(appContactList.values());
+         superWeChatModel.saveAppContactList(mList);
     }
 
 	public UserProfileManager getUserProfileManager() {
