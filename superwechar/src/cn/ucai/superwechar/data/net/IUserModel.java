@@ -4,6 +4,7 @@ import android.content.Context;
 
 import java.io.File;
 
+import cn.ucai.easeui.domain.User;
 import cn.ucai.superwechar.data.OkHttpUtils;
 
 /**
@@ -24,5 +25,7 @@ public interface IUserModel  {
 
     void updateAvatar(Context context, String username, String avatarType,
                       File file, OnCompleteListener<String> listener);
+
+    void addContact(Context context, String iname, String uname, OnCompleteListener<String> listener);
 
 }

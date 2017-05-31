@@ -230,10 +230,11 @@ public class ContactListFragment extends EaseContactListFragment {
                 e.printStackTrace();
             }
 			return true;
-		}else if(item.getItemId() == R.id.add_to_blacklist){
-			moveToBlacklist(toBeProcessUsername);
-			return true;
 		}
+//		else if(item.getItemId() == R.id.add_to_blacklist){
+//			moveToBlacklist(toBeProcessUsername);
+//			return true;
+//		}
 		return super.onContextItemSelected(item);
 	}
 
@@ -241,7 +242,7 @@ public class ContactListFragment extends EaseContactListFragment {
 	/**
 	 * delete contact
 	 * 
-	 * @param toDeleteUser
+	 * @param
 	 */
 	public void deleteContact(final EaseUser tobeDeleteUser) {
 		String st1 = getResources().getString(R.string.deleting);

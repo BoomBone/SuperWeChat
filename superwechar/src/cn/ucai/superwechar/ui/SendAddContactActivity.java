@@ -27,8 +27,8 @@ public class SendAddContactActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle arg0) {
-        super.onCreate(arg0);
         setContentView(R.layout.send_addcontact_activity);
+        super.onCreate(arg0);
         ButterKnife.bind(this);
         showLeftBack();
         username = getIntent().getStringExtra(I.User.USER_NAME);
