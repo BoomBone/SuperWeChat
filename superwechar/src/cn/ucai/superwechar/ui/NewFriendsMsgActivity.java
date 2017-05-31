@@ -34,7 +34,7 @@ public class NewFriendsMsgActivity extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		setContentView(R.layout.em_activity_new_friends_msg);
 		super.onCreate(savedInstanceState);
-
+		showLeftBack();
 
 		ListView listView = (ListView) findViewById(R.id.list);
 		InviteMessgeDao dao = new InviteMessgeDao(this);
@@ -46,7 +46,4 @@ public class NewFriendsMsgActivity extends BaseActivity {
 		
 	}
 
-	public void back(View view) {
-		finish();
-	}
 }
