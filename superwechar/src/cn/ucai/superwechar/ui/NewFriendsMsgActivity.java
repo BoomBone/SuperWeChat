@@ -32,8 +32,9 @@ public class NewFriendsMsgActivity extends BaseActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
 		setContentView(R.layout.em_activity_new_friends_msg);
+		super.onCreate(savedInstanceState);
+
 
 		ListView listView = (ListView) findViewById(R.id.list);
 		InviteMessgeDao dao = new InviteMessgeDao(this);
