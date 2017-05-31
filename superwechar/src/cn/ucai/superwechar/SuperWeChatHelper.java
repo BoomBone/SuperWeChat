@@ -47,6 +47,7 @@ import cn.ucai.superwechar.ui.MainActivity;
 import cn.ucai.superwechar.ui.VideoCallActivity;
 import cn.ucai.superwechar.ui.VoiceCallActivity;
 import cn.ucai.superwechar.utils.CommonUtils;
+import cn.ucai.superwechar.utils.L;
 import cn.ucai.superwechar.utils.PreferenceManager;
 import cn.ucai.easeui.controller.EaseUI;
 import cn.ucai.easeui.controller.EaseUI.EaseEmojiconInfoProvider;
@@ -737,22 +738,15 @@ public class SuperWeChatHelper {
 
         @Override
         public void onContactAdded(String username) {
+            contactAdd2App(username);
+            L.e(TAG,"onContactAdded+username="+username);
             // save contact
-            Map<String, EaseUser> localUsers = getContactList();
-            Map<String, EaseUser> toAddUsers = new HashMap<String, EaseUser>();
-            EaseUser user = new EaseUser(username);
 
-            if (!localUsers.containsKey(username)) {
-                userDao.saveContact(user);
-            }
-            toAddUsers.put(username, user);
-            localUsers.putAll(toAddUsers);
-
-            broadcastManager.sendBroadcast(new Intent(Constant.ACTION_CONTACT_CHANAGED));
         }
 
         @Override
         public void onContactDeleted(String username) {
+            L.e(TAG,"onContactDeleted,username="+username);
             Map<String, EaseUser> localUsers = SuperWeChatHelper.getInstance().getContactList();
             localUsers.remove(username);
             userDao.deleteContact(username);
@@ -765,6 +759,7 @@ public class SuperWeChatHelper {
 
         @Override
         public void onContactInvited(String username, String reason) {
+            L.e(TAG,"onContactInvited,username="+username+",reason="+reason);
             List<InviteMessage> msgs = inviteMessgeDao.getMessagesList();
 
             for (InviteMessage inviteMessage : msgs) {
@@ -786,6 +781,7 @@ public class SuperWeChatHelper {
 
         @Override
         public void onFriendRequestAccepted(String username) {
+            L.e(TAG,"onFriendRequestAccepted,username="+username);
             List<InviteMessage> msgs = inviteMessgeDao.getMessagesList();
             for (InviteMessage inviteMessage : msgs) {
                 if (inviteMessage.getFrom().equals(username)) {
@@ -804,11 +800,46 @@ public class SuperWeChatHelper {
 
         @Override
         public void onFriendRequestDeclined(String username) {
+            L.e(TAG,"onFriendRequestDeclined,username="+username);
+
             // your request was refused
             Log.d(username, username + " refused to your request");
         }
     }
-    
+
+    private void contactAdd2App(String username) {
+        model.addContact(appContext, EMClient.getInstance().getCurrentUser(), username, new OnCompleteListener<String>() {
+            @Override
+            public void onSuccess(String s) {
+                if(s!=null){
+                    Result<User> result = ResultUtils.getResultFromJson(s, User.class);
+                    if (result != null && result.isRetMsg()) {
+                        User user = result.getRetData();
+                        if(user!=null){
+                            saveContact2DB(user);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onError(String error) {
+
+            }
+        });
+    }
+
+    private void saveContact2DB(User user) {
+        Map<String, User> localUsers = getAppContactList();
+        Map<String, User> toAddUsers = new HashMap<String, User>();
+        if (!localUsers.containsKey(user.getMUserName())) {
+            userDao.saveAppContact(user);
+        }
+        toAddUsers.put(user.getMUserName(), user);
+        localUsers.putAll(toAddUsers);
+        broadcastManager.sendBroadcast(new Intent(Constant.ACTION_CONTACT_CHANAGED));
+    }
+
     /**
      * save and notify invitation message
      * @param msg
