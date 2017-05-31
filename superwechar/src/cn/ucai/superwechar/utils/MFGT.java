@@ -13,6 +13,7 @@ import cn.ucai.superwechar.ui.LoginActivity;
 import cn.ucai.superwechar.ui.MainActivity;
 import cn.ucai.superwechar.ui.PersonalDetailsActivity;
 import cn.ucai.superwechar.ui.RegisterActivity;
+import cn.ucai.superwechar.ui.SendAddContactActivity;
 import cn.ucai.superwechar.ui.SettingsActivity;
 
 /**
@@ -60,5 +61,10 @@ public class MFGT {
         startActivity(activity,new Intent(activity, PersonalDetailsActivity.class)
                 .putExtra(I.User.TABLE_NAME,user));
 
+    }
+
+    public static void gotoSendMessage(Activity activity, String username) {
+        startActivity(activity,new Intent(activity, SendAddContactActivity.class)
+                .putExtra(I.User.USER_NAME,username));
     }
 }

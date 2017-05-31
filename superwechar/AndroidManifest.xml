@@ -87,6 +87,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide"
             android:windowSoftInputMode="adjustResize|stateVisible" />
+        <!-- 申请验证 -->
+        <activity
+            android:name=".ui.SendAddContactActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/horizontal_slide"
+            android:windowSoftInputMode="adjustResize|stateVisible" />
 
         <!-- 注册 -->
         <activity

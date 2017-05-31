@@ -6,17 +6,29 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import cn.ucai.easeui.ui.EaseBaseFragment;
 import cn.ucai.superwechar.R;
 
 
 /**
  * Created by clawpo on 2016/9/22.
  */
-public class DicoverFragment extends Fragment {
+public class DicoverFragment extends EaseBaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         return inflater.inflate(R.layout.fragment_dicover, container, false);
+    }
+
+    @Override
+    protected void initView() {
+
+    }
+
+    @Override
+    protected void setUpView() {
+        titleBar.setTitle("发现");
     }
 
 //    //朋友圈点击事件
