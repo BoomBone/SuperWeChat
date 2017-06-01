@@ -175,13 +175,17 @@ public class EaseContactAdapter extends ArrayAdapter<User> implements SectionInd
                 final ArrayList<User> newValues = new ArrayList<User>();
                 for(int i=0;i<count;i++){
                     final User user = mOriginalList.get(i);
-                    String username = user.getMUserName();
-                    
-                    if(username.startsWith(prefixString)){
+//                    String username = user.getMUserName();
+                    String usernick = user.getMUserNick();
+//                    if(username.startsWith(prefixString)){
+//                        newValues.add(user);
+//                    }
+                    if(usernick.startsWith(prefixString)){
                         newValues.add(user);
                     }
                     else{
-                         final String[] words = username.split(" ");
+//                         final String[] words = username.split(" ");
+                         final String[] words = usernick.split(" ");
                          final int wordCount = words.length;
     
                          // Start at index 0, in case valueText starts with space(s)
