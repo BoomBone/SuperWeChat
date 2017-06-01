@@ -248,5 +248,15 @@ public class EaseCommonUtils {
                 return DefaultLetter;
             }
         }
+
+        if ( !TextUtils.isEmpty(user.getMUserNick()) ) {
+            letter = new GetInitialLetter().getLetter(user.getMUserNick());
+            user.setInitialLetter(letter);
+            return;
+        }
+        if (letter.equals(DefaultLetter) && !TextUtils.isEmpty(user.getMUserName())) {
+            letter = new GetInitialLetter().getLetter(user.getMUserName());
+        }
+        user.setInitialLetter(letter);
     }
 }

@@ -3,6 +3,8 @@ package cn.ucai.easeui.domain;
 
 import java.io.Serializable;
 
+import cn.ucai.easeui.utils.EaseCommonUtils;
+
 public class User implements Serializable {
 	private String muserName;
 	private String muserNick;
@@ -123,7 +125,7 @@ public class User implements Serializable {
 
 	public String getInitialLetter() {
 		if(initialLetter == null){
-			//EaseCommonUtils.setAppUserInitialLetter(this);
+//			EaseCommonUtils.setAppUserInitialLetter(this);
 		}
 		return initialLetter;
 	}
