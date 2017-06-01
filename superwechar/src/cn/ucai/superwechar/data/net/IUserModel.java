@@ -27,5 +27,7 @@ public interface IUserModel  {
                       File file, OnCompleteListener<String> listener);
 
     void addContact(Context context, String iname, String uname, OnCompleteListener<String> listener);
+    void deleteContact(Context context, String iname, String uname, OnCompleteListener<String> listener);
+
 
 }
