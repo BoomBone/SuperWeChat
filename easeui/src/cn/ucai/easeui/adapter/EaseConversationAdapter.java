@@ -235,20 +235,21 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
                 for (int i = 0; i < count; i++) {
                     final EMConversation value = mOriginalValues.get(i);
                     String username = value.conversationId();
-                    
+
                     EMGroup group = EMClient.getInstance().groupManager().getGroup(username);
+                    String nickname = "";
                     if(group != null){
                         username = group.getGroupName();
                     }else{
-//                        EaseUser user = EaseUserUtils.getUserInfo(username);
                         User user = EaseUserUtils.getAppUserInfo(username);
                         // TODO: not support Nick anymore
-                        if(user != null && user.getMUserNick() != null)
-                            username = user.getMUserNick();
+                        if(user!=null){
+                            nickname = user.getMUserNick();
+                        }
                     }
 
                     // First match against the whole ,non-splitted value
-                    if (username.startsWith(prefixString)) {
+                    if (username.contains(prefixString)||nickname.contains(prefixString)) {
                         newValues.add(value);
                     } else{
                           final String[] words = username.split(" ");
