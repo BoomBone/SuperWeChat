@@ -46,6 +46,7 @@ import cn.ucai.superwechar.ui.PickAtUserActivity;
 import cn.ucai.superwechar.ui.UserProfileActivity;
 import cn.ucai.superwechar.ui.VideoCallActivity;
 import cn.ucai.superwechar.ui.VoiceCallActivity;
+import cn.ucai.superwechar.utils.MFGT;
 import cn.ucai.superwechar.widget.ChatRowVoiceCall;
 import cn.ucai.easeui.EaseConstant;
 import cn.ucai.easeui.ui.EaseChatFragment;
@@ -263,9 +264,10 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
     @Override
     public void onAvatarClick(String username) {
         //handling when user click avatar
-        Intent intent = new Intent(getActivity(), UserProfileActivity.class);
-        intent.putExtra("username", username);
-        startActivity(intent);
+//        Intent intent = new Intent(getActivity(), UserProfileActivity.class);
+//        intent.putExtra("username", username);
+//        startActivity(intent);
+        MFGT.gotoProfile(getActivity(),username);
     }
     
     @Override
