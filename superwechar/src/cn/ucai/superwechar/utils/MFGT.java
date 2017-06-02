@@ -60,7 +60,10 @@ public class MFGT {
     public static void gotoProfile(Activity activity, User user) {
         startActivity(activity,new Intent(activity, PersonalDetailsActivity.class)
                 .putExtra(I.User.TABLE_NAME,user));
-
+    }
+    public static void gotoProfile(Activity activity, String username) {
+        startActivity(activity,new Intent(activity, PersonalDetailsActivity.class)
+                .putExtra(I.User.USER_NAME,username));
     }
 
     public static void gotoSendMessage(Activity activity, String username) {

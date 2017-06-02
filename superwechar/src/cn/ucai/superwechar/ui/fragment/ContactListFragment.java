@@ -34,6 +34,7 @@ import cn.ucai.superwechar.ui.NewFriendsMsgActivity;
 import cn.ucai.superwechar.ui.PublicChatRoomsActivity;
 import cn.ucai.superwechar.ui.RobotsActivity;
 import cn.ucai.superwechar.utils.L;
+import cn.ucai.superwechar.utils.MFGT;
 import cn.ucai.superwechar.utils.ResultUtils;
 import cn.ucai.superwechar.widget.ContactItemView;
 import cn.ucai.easeui.domain.EaseUser;
@@ -141,7 +142,8 @@ public class ContactListFragment extends EaseContactListFragment {
                 if (user != null) {
                     String username = user.getMUserName();
                     // demo中直接进入聊天页面，实际一般是进入用户详情页
-                    startActivity(new Intent(getActivity(), ChatActivity.class).putExtra("userId", username));
+//                    startActivity(new Intent(getActivity(), ChatActivity.class).putExtra("userId", username));
+                    MFGT.gotoProfile(getActivity(),username);
                 }
             }
         });
