@@ -18,7 +18,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -257,7 +256,7 @@ public class EaseContactListFragment extends EaseBaseFragment {
 
             @Override
             public int compare(User lhs, User rhs) {
-                Log.e(TAG, "Collections,lsh=" + lhs+",rhs="+rhs);
+
                 if (lhs.getInitialLetter().equals(rhs.getInitialLetter())) {
                     return lhs.getMUserNick().compareTo(rhs.getMUserNick());
                 } else {
