@@ -80,11 +80,12 @@ public class PersonalDetailsActivity extends BaseActivity {
 
     @OnClick(R.id.btn_send_msg)
     public void onBtnSendMsgClicked() {
-        startActivity(new Intent(PersonalDetailsActivity.this, ChatActivity.class).putExtra("userId", user.getMUserName()));
+        MFGT.gotoChat(PersonalDetailsActivity.this, user.getMUserName());
     }
 
     @OnClick(R.id.btn_send_video)
     public void onBtnSendVideoClicked() {
+        MFGT.gotoVedio(PersonalDetailsActivity.this, user.getMUserName());
     }
 
 //    public void addContact(View view) {

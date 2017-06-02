@@ -3,11 +3,15 @@ package cn.ucai.superwechar.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.widget.Toast;
+
+import com.hyphenate.chat.EMClient;
 
 import cn.ucai.easeui.domain.User;
 import cn.ucai.superwechar.I;
 import cn.ucai.superwechar.R;
 import cn.ucai.superwechar.ui.AddContactActivity;
+import cn.ucai.superwechar.ui.ChatActivity;
 import cn.ucai.superwechar.ui.GuideActivity;
 import cn.ucai.superwechar.ui.LoginActivity;
 import cn.ucai.superwechar.ui.MainActivity;
@@ -15,6 +19,7 @@ import cn.ucai.superwechar.ui.PersonalDetailsActivity;
 import cn.ucai.superwechar.ui.RegisterActivity;
 import cn.ucai.superwechar.ui.SendAddContactActivity;
 import cn.ucai.superwechar.ui.SettingsActivity;
+import cn.ucai.superwechar.ui.VideoCallActivity;
 
 /**
  * Created by Administrator on 2017/5/19.
@@ -70,4 +75,21 @@ public class MFGT {
         startActivity(activity,new Intent(activity, SendAddContactActivity.class)
                 .putExtra(I.User.USER_NAME,username));
     }
+
+    public static void gotoChat(Activity activity, String username) {
+        startActivity(activity,new Intent(activity, ChatActivity.class)
+                .putExtra("userId",username));
+    }
+    public static void gotoVedio(Activity activity, String username) {
+        if (!EMClient.getInstance().isConnected())
+            Toast.makeText(activity, R.string.not_connect_to_server, Toast.LENGTH_SHORT).show();
+        else {
+            startActivity(activity,new Intent(activity, VideoCallActivity.class)
+                    .putExtra("username", username)
+                    .putExtra("isComingCall", false));
+
+        }
+
+    }
+
 }
