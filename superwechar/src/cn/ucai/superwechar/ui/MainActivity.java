@@ -651,4 +651,12 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
                                            @NonNull int[] grantResults) {
         PermissionsManager.getInstance().notifyPermissionsChange(permissions, grantResults);
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==RESULT_OK){
+            initFragment();
+        }
+    }
 }

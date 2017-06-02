@@ -1,12 +1,15 @@
 package cn.ucai.superwechar.ui;
 
 import android.app.ProgressDialog;
+import android.app.admin.SystemUpdatePolicy;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.hyphenate.chat.EMClient;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -53,6 +56,9 @@ public class PersonalDetailsActivity extends BaseActivity {
         if (user == null) {
             user = (User) getIntent().getSerializableExtra(I.User.TABLE_NAME);
         }
+        if(user==null&&username.equals(EMClient.getInstance().getCurrentUser())){
+            user = SuperWeChatHelper.getInstance().getUserProfileManager().getCurrentAppUserInfo();
+        }
         if (user != null) {
             showInfo();
         } else {
@@ -68,9 +74,12 @@ public class PersonalDetailsActivity extends BaseActivity {
     }
 
     private void showButton(boolean isContact) {
-        btnAddContact.setVisibility(isContact ? View.GONE : View.VISIBLE);
-        btnSendMsg.setVisibility(isContact ? View.VISIBLE : View.GONE);
-        btnSendVideo.setVisibility(isContact ? View.VISIBLE : View.GONE);
+        if(!user.getMUserName().equals(EMClient.getInstance().getCurrentUser())){
+            btnAddContact.setVisibility(isContact ? View.GONE : View.VISIBLE);
+            btnSendMsg.setVisibility(isContact ? View.VISIBLE : View.GONE);
+            btnSendVideo.setVisibility(isContact ? View.VISIBLE : View.GONE);
+        }
+
     }
 
     @OnClick(R.id.btn_add_contact)

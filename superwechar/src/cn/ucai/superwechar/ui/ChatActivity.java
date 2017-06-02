@@ -11,7 +11,7 @@ import cn.ucai.superwechar.ui.fragment.ChatFragment;
 import com.hyphenate.util.EasyUtils;
 
 /**
- * chat activity，EaseChatFragment was used {@link #EaseChatFragment}
+ *
  *
  */
 public class ChatActivity extends BaseActivity{
@@ -58,6 +58,7 @@ public class ChatActivity extends BaseActivity{
         chatFragment.onBackPressed();
         if (EasyUtils.isSingleActivity(this)) {
             Intent intent = new Intent(this, MainActivity.class);
+//            startActivityForResult(intent,RESULT_OK);
             startActivity(intent);
         }
     }
