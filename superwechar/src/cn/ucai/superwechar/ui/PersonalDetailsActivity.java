@@ -1,23 +1,18 @@
 package cn.ucai.superwechar.ui;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.hyphenate.chat.EMClient;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.ucai.easeui.domain.User;
 import cn.ucai.easeui.utils.EaseUserUtils;
-import cn.ucai.easeui.widget.EaseAlertDialog;
 import cn.ucai.superwechar.I;
 import cn.ucai.superwechar.R;
 import cn.ucai.superwechar.SuperWeChatHelper;
@@ -52,15 +47,15 @@ public class PersonalDetailsActivity extends BaseActivity {
 
     private void initData() {
         String username = getIntent().getStringExtra(I.User.USER_NAME);
-        if(username!=null){
+        if (username != null) {
             user = SuperWeChatHelper.getInstance().getAppContactList().get(username);
         }
-        if(user==null){
+        if (user == null) {
             user = (User) getIntent().getSerializableExtra(I.User.TABLE_NAME);
         }
-        if(user!=null){
+        if (user != null) {
             showInfo();
-        }else{
+        } else {
             finish();
         }
     }
@@ -68,19 +63,30 @@ public class PersonalDetailsActivity extends BaseActivity {
     private void showInfo() {
         tvUserinfoName.setText(user.getMUserName());
         tvUserinfoNick.setText(user.getMUserNick());
-        EaseUserUtils.setAppUserAvatar(PersonalDetailsActivity.this,user,profileImage);
+        EaseUserUtils.setAppUserAvatar(PersonalDetailsActivity.this, user, profileImage);
         showButton(SuperWeChatHelper.getInstance().getAppContactList().containsKey(user.getMUserName()));
     }
 
     private void showButton(boolean isContact) {
         btnAddContact.setVisibility(isContact ? View.GONE : View.VISIBLE);
         btnSendMsg.setVisibility(isContact ? View.VISIBLE : View.GONE);
-        btnSendVideo.setVisibility(isContact?View.VISIBLE:View.GONE);
+        btnSendVideo.setVisibility(isContact ? View.VISIBLE : View.GONE);
     }
+
     @OnClick(R.id.btn_add_contact)
-    public void sendAddContactMsg(){
+    public void sendAddContactMsg() {
         MFGT.gotoSendMessage(PersonalDetailsActivity.this, user.getMUserName());
     }
+
+    @OnClick(R.id.btn_send_msg)
+    public void onBtnSendMsgClicked() {
+        startActivity(new Intent(PersonalDetailsActivity.this, ChatActivity.class).putExtra("userId", user.getMUserName()));
+    }
+
+    @OnClick(R.id.btn_send_video)
+    public void onBtnSendVideoClicked() {
+    }
+
 //    public void addContact(View view) {
 //        if (EMClient.getInstance().getCurrentUser().equals(user.getMUserName())) {
 //            new EaseAlertDialog(this, R.string.not_add_myself).show();
