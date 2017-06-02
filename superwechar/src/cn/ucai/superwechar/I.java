@@ -4,6 +4,7 @@ public interface I {
 
 	String BROADCAST_UPDATE_AVATAR = "cn.ucai.superwechat_broadcast_update_avatar";
 	String RESULT_UPDATE_AVATAR = "cn.ucai.superwechat_broadcast_update_avatar_result";
+	String REQUEST_CODE_IS_CHAT = "request_code_is_chat";
 
 
 	public static interface User {

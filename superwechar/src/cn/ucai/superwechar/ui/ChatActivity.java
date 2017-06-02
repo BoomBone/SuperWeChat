@@ -7,6 +7,8 @@ import cn.ucai.superwechar.R;
 import cn.ucai.superwechar.runtimepermissions.PermissionsManager;
 import cn.ucai.easeui.ui.EaseChatFragment;
 import cn.ucai.superwechar.ui.fragment.ChatFragment;
+import cn.ucai.superwechar.utils.L;
+import cn.ucai.superwechar.utils.MFGT;
 
 import com.hyphenate.util.EasyUtils;
 
@@ -15,6 +17,7 @@ import com.hyphenate.util.EasyUtils;
  *
  */
 public class ChatActivity extends BaseActivity{
+    private static final String TAG = "ChatActivity";
     public static ChatActivity activityInstance;
     private EaseChatFragment chatFragment;
     String toChatUsername;
@@ -26,6 +29,7 @@ public class ChatActivity extends BaseActivity{
         activityInstance = this;
         //get user id or group id
         toChatUsername = getIntent().getExtras().getString("userId");
+        L.e(TAG,"toChatUsername="+toChatUsername);
         //use EaseChatFratFragment
         chatFragment = new ChatFragment();
         //pass parameters to chat fragment
@@ -44,6 +48,7 @@ public class ChatActivity extends BaseActivity{
     protected void onNewIntent(Intent intent) {
     	// make sure only one chat activity is opened
         String username = intent.getStringExtra("userId");
+        L.e(TAG,"username="+username);
         if (toChatUsername.equals(username))
             super.onNewIntent(intent);
         else {
@@ -56,11 +61,7 @@ public class ChatActivity extends BaseActivity{
     @Override
     public void onBackPressed() {
         chatFragment.onBackPressed();
-        if (EasyUtils.isSingleActivity(this)) {
-            Intent intent = new Intent(this, MainActivity.class);
-//            startActivityForResult(intent,RESULT_OK);
-            startActivity(intent);
-        }
+        MFGT.gotoMain(ChatActivity.this,true);
     }
     
     public String getToChatUsername(){
