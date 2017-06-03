@@ -32,6 +32,9 @@ public interface IUserModel  {
 
     void loadContact(Context context, String iname, OnCompleteListener<String> listener);
 
+    void createGroup(Context context, String hxid, String name, String des, String owner
+            , boolean isPublic, boolean isInviets, File file, OnCompleteListener<String> listener);
+
 
 
 }
