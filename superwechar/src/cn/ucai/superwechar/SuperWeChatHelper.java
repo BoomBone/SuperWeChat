@@ -29,6 +29,7 @@ import com.hyphenate.chat.EMMessage.Type;
 import com.hyphenate.chat.EMOptions;
 import com.hyphenate.chat.EMTextMessageBody;
 
+import cn.ucai.easeui.domain.Group;
 import cn.ucai.easeui.domain.User;
 import cn.ucai.superwechar.data.Result;
 import cn.ucai.superwechar.data.net.IUserModel;
@@ -290,6 +291,8 @@ public class SuperWeChatHelper {
             public User getAppUser(String username) {
                 return getAppUserInfo(username);
             }
+
+
         });
 
         //set options 
@@ -429,6 +432,8 @@ public class SuperWeChatHelper {
             }
         });
     }
+
+
 
     EMConnectionListener connectionListener;
     /**
@@ -928,8 +933,10 @@ public class SuperWeChatHelper {
         }
         return user;
 	}
+	/*---------------------------------------------------------------------------*/
 
-	 /**
+
+    /**
      * Global listener
      * If this event already handled by an activity, you don't need handle it again
      * activityList.size() <= 0 means all activities already in background or not in Activity Stack

@@ -39,6 +39,7 @@ import cn.ucai.superwechar.data.net.IUserModel;
 import cn.ucai.superwechar.data.net.OnCompleteListener;
 import cn.ucai.superwechar.data.net.UserModel;
 import cn.ucai.superwechar.utils.CommonUtils;
+import cn.ucai.superwechar.utils.L;
 import cn.ucai.superwechar.utils.ResultUtils;
 
 import com.hyphenate.exceptions.HyphenateException;
@@ -46,6 +47,7 @@ import com.hyphenate.exceptions.HyphenateException;
 import java.io.File;
 
 public class NewGroupActivity extends BaseActivity {
+    private static final String TAG = "NewGroupActivity";
     private EditText groupNameEditText;
     private ProgressDialog progressDialog;
     private EditText introductionEditText;
@@ -174,9 +176,10 @@ public class NewGroupActivity extends BaseActivity {
                 new OnCompleteListener<String>() {
                     @Override
                     public void onSuccess(String s) {
+                        L.e(TAG,"createAppGroup,onSuccess");
                         boolean isSuccess = false;
                         if(s!=null){
-                            Result<Group> result = ResultUtils.getResultFromJson(s, I.Group.class);
+                            Result<Group> result = ResultUtils.getResultFromJson(s, Group.class);
                             if(result!=null&&result.isRetMsg()){
                                 isSuccess = true;
                                 createSuccess();

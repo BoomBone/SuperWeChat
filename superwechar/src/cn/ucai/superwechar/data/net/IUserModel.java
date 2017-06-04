@@ -11,7 +11,7 @@ import cn.ucai.superwechar.data.OkHttpUtils;
  * Created by Administrator on 2017/5/19.
  */
 
-public interface IUserModel  {
+public interface IUserModel {
     void register(Context context, String username, String usernick, String password,
                   OnCompleteListener<String> listener);
 
@@ -34,7 +34,6 @@ public interface IUserModel  {
 
     void createGroup(Context context, String hxid, String name, String des, String owner
             , boolean isPublic, boolean isInviets, File file, OnCompleteListener<String> listener);
-
 
 
 }
