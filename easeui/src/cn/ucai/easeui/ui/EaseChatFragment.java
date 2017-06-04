@@ -187,7 +187,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
                 }
             }
             titleBar.setRightImageResource(cn.ucai.easeui.R.drawable.ease_mm_title_remove);
-        } else {
+        } else {//群聊
         	titleBar.setRightImageResource(cn.ucai.easeui.R.drawable.ease_to_group_details_normal);
             if (chatType == EaseConstant.CHATTYPE_GROUP) {
                 //group chat

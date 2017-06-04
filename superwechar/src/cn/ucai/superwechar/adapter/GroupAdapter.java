@@ -96,6 +96,7 @@ public class GroupAdapter extends ArrayAdapter<EMGroup> {
 			if (convertView == null) {
 				convertView = inflater.inflate(R.layout.em_row_add_group, parent, false);
 			}
+			/*---------------------------------------群头像-----------------------------------------------*/
 			((ImageView) convertView.findViewById(R.id.avatar)).setImageResource(R.drawable.em_create_group);
 			((TextView) convertView.findViewById(R.id.name)).setText(newGroup);
 		} else if (getItemViewType(position) == 2) {

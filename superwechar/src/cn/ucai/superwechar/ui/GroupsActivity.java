@@ -117,6 +117,7 @@ public class GroupsActivity extends BaseActivity {
                     // join a public group
                     startActivityForResult(new Intent(GroupsActivity.this, PublicGroupsActivity.class), 0);
                 } else {
+                    /*进入群组聊天室，传送"chatType"和"userId"*/
                     // enter group chat
                     Intent intent = new Intent(GroupsActivity.this, ChatActivity.class);
                     // it is group chat

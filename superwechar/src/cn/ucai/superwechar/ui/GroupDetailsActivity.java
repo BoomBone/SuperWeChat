@@ -61,7 +61,7 @@ public class GroupDetailsActivity extends BaseActivity implements OnClickListene
 
 
 	private String groupId;
-	private ProgressBar loadingPB;
+//	private ProgressBar loadingPB;
 	private Button exitBtn;
 	private Button deleteBtn;
 	private EMGroup group;
@@ -89,8 +89,9 @@ public class GroupDetailsActivity extends BaseActivity implements OnClickListene
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		setContentView(R.layout.em_activity_group_details);
 	    super.onCreate(savedInstanceState);
-	    
+	    showLeftBack();
         groupId = getIntent().getStringExtra("groupId");
         group = EMClient.getInstance().groupManager().getGroup(groupId);
 
@@ -100,12 +101,12 @@ public class GroupDetailsActivity extends BaseActivity implements OnClickListene
             return;
         }
         
-		setContentView(R.layout.em_activity_group_details);
+
 
 		instance = this;
 		st = getResources().getString(R.string.people);
 		RelativeLayout clearAllHistory = (RelativeLayout) findViewById(R.id.clear_all_history);
-		loadingPB = (ProgressBar) findViewById(R.id.progressBar);
+//		loadingPB = (ProgressBar) findViewById(R.id.progressBar);
 		exitBtn = (Button) findViewById(R.id.btn_exit_grp);
 		deleteBtn = (Button) findViewById(R.id.btn_exitdel_grp);
 		RelativeLayout changeGroupNameLayout = (RelativeLayout) findViewById(R.id.rl_change_group_name);
@@ -140,8 +141,9 @@ public class GroupDetailsActivity extends BaseActivity implements OnClickListene
 
 		groupChangeListener = new GroupChangeListener();
 		EMClient.getInstance().groupManager().addGroupChangeListener(groupChangeListener);
-		
-		((TextView) findViewById(R.id.group_name)).setText(group.getGroupName() + "(" + group.getMemberCount() + st);
+
+		titleBar.setTitle(group.getGroupName() + "(" + group.getMemberCount() + st);
+//		((TextView) findViewById(R.id.group_name)).setText(group.getGroupName() + "(" + group.getMemberCount() + st);
 
 		membersAdapter = new GridAdapter(this, R.layout.em_grid_owner, new ArrayList<String>());
 		EaseExpandGridView userGridview = (EaseExpandGridView) findViewById(R.id.gridview);
@@ -281,7 +283,8 @@ public class GroupDetailsActivity extends BaseActivity implements OnClickListene
 								EMClient.getInstance().groupManager().changeGroupName(groupId, returnData);
 								runOnUiThread(new Runnable() {
 									public void run() {
-										((TextView) findViewById(R.id.group_name)).setText(group.getGroupName() + "(" + group.getMemberCount() + ")");
+//										((TextView) findViewById(R.id.group_name)).setText(group.getGroupName() + "(" + group.getMemberCount() + ")");
+										titleBar.setTitle(group.getGroupName() + "(" + group.getMemberCount() + ")");
 										progressDialog.dismiss();
 										Toast.makeText(getApplicationContext(), st6, Toast.LENGTH_SHORT).show();
 									}
@@ -503,8 +506,9 @@ public class GroupDetailsActivity extends BaseActivity implements OnClickListene
 					refreshMembersAdapter();
 					runOnUiThread(new Runnable() {
 						public void run() {
-							((TextView) findViewById(R.id.group_name)).setText(group.getGroupName() + "(" + group.getMemberCount()
-									+ st);
+//							((TextView) findViewById(R.id.group_name))
+//									.setText(group.getGroupName() + "(" + group.getMemberCount() + st);
+							titleBar.setTitle(group.getGroupName() + "(" + group.getMemberCount() + st);
 							progressDialog.dismiss();
 						}
 					});
@@ -701,7 +705,7 @@ public class GroupDetailsActivity extends BaseActivity implements OnClickListene
 				@Override
 				public void onClick(final View v) {
 					dialog.dismiss();
-					loadingPB.setVisibility(View.VISIBLE);
+//					loadingPB.setVisibility(View.VISIBLE);
 
 					new Thread(new Runnable() {
 						@Override
@@ -751,12 +755,12 @@ public class GroupDetailsActivity extends BaseActivity implements OnClickListene
 								e.printStackTrace();
 
 							} finally {
-								runOnUiThread(new Runnable() {
-									@Override
-									public void run() {
-										loadingPB.setVisibility(View.INVISIBLE);
-									}
-								});
+//								runOnUiThread(new Runnable() {
+//									@Override
+//									public void run() {
+//										loadingPB.setVisibility(View.INVISIBLE);
+//									}
+//								});
 							}
 						}
 					}).start();
@@ -1045,9 +1049,10 @@ public class GroupDetailsActivity extends BaseActivity implements OnClickListene
 							refreshMembersAdapter();
 
 //							refreshUIVisibility();
-							((TextView) findViewById(R.id.group_name)).setText(group.getGroupName() + "(" + group.getMemberCount()
-									+ ")");
-							loadingPB.setVisibility(View.INVISIBLE);
+//							((TextView) findViewById(R.id.group_name))
+//									.setText(group.getGroupName() + "(" + group.getMemberCount() + ")");
+							titleBar.setTitle(group.getGroupName() + "(" + group.getMemberCount() + ")");
+//							loadingPB.setVisibility(View.INVISIBLE);
 
 							if (EMClient.getInstance().getCurrentUser().equals(group.getOwner())) {
 								// 显示解散按钮
@@ -1084,21 +1089,21 @@ public class GroupDetailsActivity extends BaseActivity implements OnClickListene
 					});
 
 				} catch (Exception e) {
-					runOnUiThread(new Runnable() {
-						public void run() {
-							loadingPB.setVisibility(View.INVISIBLE);
-						}
-					});
+//					runOnUiThread(new Runnable() {
+//						public void run() {
+//							loadingPB.setVisibility(View.INVISIBLE);
+//						}
+//					});
 				}
 			}
 		}).start();
 
 	}
 
-	public void back(View view) {
-		setResult(RESULT_OK);
-		finish();
-	}
+//	public void back(View view) {
+//		setResult(RESULT_OK);
+//		finish();
+//	}
 
 	@Override
 	public void onBackPressed() {
