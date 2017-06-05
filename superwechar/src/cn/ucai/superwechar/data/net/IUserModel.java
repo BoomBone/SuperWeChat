@@ -37,4 +37,6 @@ public interface IUserModel {
 
     void addGroupMembers(Context context, String username, String hxid, OnCompleteListener<String> listener);
 
+    void updateGroupNameByHxid(Context context, String hxid, String newGroupname, OnCompleteListener<String> listener);
+
 }

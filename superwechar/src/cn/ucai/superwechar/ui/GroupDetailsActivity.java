@@ -482,7 +482,7 @@ public class GroupDetailsActivity extends BaseActivity implements OnClickListene
 
     private String getAvatarName() {
         L.e(TAG,"getAvatarName");
-        avatarName = groupId;
+        avatarName = String.valueOf(System.currentTimeMillis());
         return avatarName;
     }
 

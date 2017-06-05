@@ -130,4 +130,14 @@ public class UserModel implements IUserModel {
                 .targetClass(String.class)
                 .execute(listener);
     }
+
+    @Override
+    public void updateGroupNameByHxid(Context context, String hxid, String newGroupname, OnCompleteListener<String> listener) {
+        OkHttpUtils<String> utils = new OkHttpUtils<>(context);
+        utils.setRequestUrl(I.REQUEST_DELETE_GROUP_BY_HXID)
+                .addParam(I.Group.HX_ID, hxid)
+                .addParam(I.Group.NAME, newGroupname)
+                .targetClass(String.class)
+                .execute(listener);
+    }
 }
