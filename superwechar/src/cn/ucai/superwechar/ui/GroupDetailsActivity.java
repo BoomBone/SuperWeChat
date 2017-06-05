@@ -86,7 +86,7 @@ public class GroupDetailsActivity extends BaseActivity implements OnClickListene
 
 
     private String groupId;
-    //	private ProgressBar loadingPB;
+    private ProgressBar loadingPB;
     private Button exitBtn;
     private Button deleteBtn;
     private EMGroup group;
@@ -136,7 +136,7 @@ public class GroupDetailsActivity extends BaseActivity implements OnClickListene
         instance = this;
         st = getResources().getString(R.string.people);
         RelativeLayout clearAllHistory = (RelativeLayout) findViewById(R.id.clear_all_history);
-//		loadingPB = (ProgressBar) findViewById(R.id.progressBar);
+		loadingPB = (ProgressBar) findViewById(R.id.progressBar);
         exitBtn = (Button) findViewById(R.id.btn_exit_grp);
         deleteBtn = (Button) findViewById(R.id.btn_exitdel_grp);
         RelativeLayout changeGroupNameLayout = (RelativeLayout) findViewById(R.id.rl_change_group_name);
@@ -872,7 +872,7 @@ public class GroupDetailsActivity extends BaseActivity implements OnClickListene
                 @Override
                 public void onClick(final View v) {
                     dialog.dismiss();
-//					loadingPB.setVisibility(View.VISIBLE);
+					loadingPB.setVisibility(View.VISIBLE);
 
                     new Thread(new Runnable() {
                         @Override
@@ -922,12 +922,12 @@ public class GroupDetailsActivity extends BaseActivity implements OnClickListene
                                 e.printStackTrace();
 
                             } finally {
-//								runOnUiThread(new Runnable() {
-//									@Override
-//									public void run() {
-//										loadingPB.setVisibility(View.INVISIBLE);
-//									}
-//								});
+								runOnUiThread(new Runnable() {
+									@Override
+									public void run() {
+										loadingPB.setVisibility(View.INVISIBLE);
+									}
+								});
                             }
                         }
                     }).start();
@@ -993,8 +993,8 @@ public class GroupDetailsActivity extends BaseActivity implements OnClickListene
             final String username = getItem(position);
             convertView.setVisibility(View.VISIBLE);
             button.setVisibility(View.VISIBLE);
-            EaseUserUtils.setUserNick(username, holder.textView);
-            EaseUserUtils.setUserAvatar(getContext(), username, holder.imageView);
+            EaseUserUtils.setAppUserNick(username, holder.textView);
+            EaseUserUtils.setAppUserAvatar(getContext(), username, holder.imageView);
 
             LinearLayout id_background = (LinearLayout) convertView.findViewById(R.id.l_bg_id);
             id_background.setBackgroundColor(convertView.getResources().getColor(
@@ -1094,8 +1094,8 @@ public class GroupDetailsActivity extends BaseActivity implements OnClickListene
             } else {
                 // members
                 final String username = getItem(position);
-                EaseUserUtils.setUserNick(username, holder.textView);
-                EaseUserUtils.setUserAvatar(getContext(), username, holder.imageView);
+                EaseUserUtils.setAppUserNick(username, holder.textView);
+                EaseUserUtils.setAppUserAvatar(getContext(), username, holder.imageView);
 
                 LinearLayout id_background = (LinearLayout) convertView.findViewById(R.id.l_bg_id);
                 if (isInMuteList(username)) {
@@ -1221,7 +1221,7 @@ public class GroupDetailsActivity extends BaseActivity implements OnClickListene
 //							((TextView) findViewById(R.id.group_name))
 //									.setText(group.getGroupName() + "(" + group.getMemberCount() + ")");
                             titleBar.setTitle(group.getGroupName() + "(" + group.getMemberCount() + ")");
-//							loadingPB.setVisibility(View.INVISIBLE);
+							loadingPB.setVisibility(View.INVISIBLE);
 
                             if (EMClient.getInstance().getCurrentUser().equals(group.getOwner())) {
                                 // 显示解散按钮
@@ -1258,11 +1258,11 @@ public class GroupDetailsActivity extends BaseActivity implements OnClickListene
                     });
 
                 } catch (Exception e) {
-//					runOnUiThread(new Runnable() {
-//						public void run() {
-//							loadingPB.setVisibility(View.INVISIBLE);
-//						}
-//					});
+					runOnUiThread(new Runnable() {
+						public void run() {
+							loadingPB.setVisibility(View.INVISIBLE);
+						}
+					});
                 }
             }
         }).start();
