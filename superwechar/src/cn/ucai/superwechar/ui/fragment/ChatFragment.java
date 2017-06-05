@@ -31,9 +31,15 @@ import com.hyphenate.chat.EMCmdMessageBody;
 import com.hyphenate.chat.EMGroup;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMTextMessageBody;
+
+import cn.ucai.easeui.domain.User;
 import cn.ucai.superwechar.Constant;
 import cn.ucai.superwechar.SuperWeChatHelper;
 import cn.ucai.superwechar.R;
+import cn.ucai.superwechar.data.Result;
+import cn.ucai.superwechar.data.net.IUserModel;
+import cn.ucai.superwechar.data.net.OnCompleteListener;
+import cn.ucai.superwechar.data.net.UserModel;
 import cn.ucai.superwechar.domain.EmojiconExampleGroupData;
 import cn.ucai.superwechar.domain.RobotUser;
 import cn.ucai.superwechar.ui.ChatRoomDetailsActivity;
@@ -47,6 +53,7 @@ import cn.ucai.superwechar.ui.UserProfileActivity;
 import cn.ucai.superwechar.ui.VideoCallActivity;
 import cn.ucai.superwechar.ui.VoiceCallActivity;
 import cn.ucai.superwechar.utils.MFGT;
+import cn.ucai.superwechar.utils.ResultUtils;
 import cn.ucai.superwechar.widget.ChatRowVoiceCall;
 import cn.ucai.easeui.EaseConstant;
 import cn.ucai.easeui.ui.EaseChatFragment;
@@ -97,6 +104,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
      * if it is chatBot 
      */
     private boolean isRobot;
+    IUserModel model;
     
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -113,6 +121,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
             }
         }
         super.setUpView();
+        model = new UserModel();
         // set click listener
         titleBar.setLeftLayoutClickListener(new OnClickListener() {
 
@@ -267,6 +276,33 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
 //        Intent intent = new Intent(getActivity(), UserProfileActivity.class);
 //        intent.putExtra("username", username);
 //        startActivity(intent);
+
+        model.loadUserInfo(getContext(), username, new OnCompleteListener<String>() {
+            @Override
+            public void onSuccess(String s) {
+                User user = null;
+                boolean isSuccess = false;
+                if(s!=null){
+                    Result<User> result = ResultUtils.getResultFromJson(s, User.class);
+                    if(result!=null&&result.isRetMsg()){
+                        user = result.getRetData();
+                        if(user!=null){
+                            isSuccess = true;
+                        }
+                    }
+                    if(isSuccess){
+                        MFGT.gotoProfile(getActivity(),user);
+                    }
+                }
+
+
+            }
+
+            @Override
+            public void onError(String error) {
+
+            }
+        });
         MFGT.gotoProfile(getActivity(),username);
     }
     

@@ -19,7 +19,12 @@ import cn.ucai.easeui.utils.EaseUserUtils;
 import cn.ucai.superwechar.I;
 import cn.ucai.superwechar.R;
 import cn.ucai.superwechar.SuperWeChatHelper;
+import cn.ucai.superwechar.data.Result;
+import cn.ucai.superwechar.data.net.IUserModel;
+import cn.ucai.superwechar.data.net.OnCompleteListener;
+import cn.ucai.superwechar.data.net.UserModel;
 import cn.ucai.superwechar.utils.MFGT;
+import cn.ucai.superwechar.utils.ResultUtils;
 
 
 public class PersonalDetailsActivity extends BaseActivity {
@@ -37,7 +42,9 @@ public class PersonalDetailsActivity extends BaseActivity {
     @BindView(R.id.btn_send_video)
     Button btnSendVideo;
     User user = null;
+    IUserModel model;
     private ProgressDialog progressDialog;
+    boolean isContact=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,16 +53,19 @@ public class PersonalDetailsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         initData();
         showLeftBack();
+        model = new UserModel();
     }
 
     private void initData() {
         String username = getIntent().getStringExtra(I.User.USER_NAME);
         if (username != null) {
+            //根据用户名获取好友
             user = SuperWeChatHelper.getInstance().getAppContactList().get(username);
         }
         if (user == null) {
             user = (User) getIntent().getSerializableExtra(I.User.TABLE_NAME);
         }
+        //点击自己的头像获取的自己用户名
         if(user==null&&username.equals(EMClient.getInstance().getCurrentUser())){
             user = SuperWeChatHelper.getInstance().getUserProfileManager().getCurrentAppUserInfo();
         }
@@ -70,7 +80,8 @@ public class PersonalDetailsActivity extends BaseActivity {
         tvUserinfoName.setText(user.getMUserName());
         tvUserinfoNick.setText(user.getMUserNick());
         EaseUserUtils.setAppUserAvatar(PersonalDetailsActivity.this, user, profileImage);
-        showButton(SuperWeChatHelper.getInstance().getAppContactList().containsKey(user.getMUserName()));
+//        showButton(SuperWeChatHelper.getInstance().getAppContactList().containsKey(user.getMUserName()));
+        showButton(isContact);
     }
 
     private void showButton(boolean isContact) {

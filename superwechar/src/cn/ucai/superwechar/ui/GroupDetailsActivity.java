@@ -115,6 +115,7 @@ public class GroupDetailsActivity extends BaseActivity implements OnClickListene
 
     GroupChangeListener groupChangeListener;
     ImageView mGroupAvatar;
+    TextView mGroundName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -185,7 +186,9 @@ public class GroupDetailsActivity extends BaseActivity implements OnClickListene
         ownerAdminGridview.setAdapter(ownerAdminAdapter);
         /*---------------------------------------------------------------------*/
         mGroupAvatar = (ImageView) findViewById(R.id.group_image);
+        mGroundName = (TextView) findViewById(R.id.group_name);
         EaseUserUtils.setAppGroupAvatar(GroupDetailsActivity.this, groupId, mGroupAvatar);
+        mGroundName.setText(group.getGroupName());
 
         mReceiver = new UpdateAvatarBroadcastReceiver();
         IntentFilter filter = new IntentFilter(I.BROADCAST_UPDATE_AVATAR);
@@ -1055,7 +1058,7 @@ public class GroupDetailsActivity extends BaseActivity implements OnClickListene
             super(context, textViewResourceId, objects);
             res = textViewResourceId;
         }
-
+        /*-------------------------------------------------------------------------------*/
         @Override
         public View getView(final int position, View convertView, final ViewGroup parent) {
             ViewHolder holder = null;
