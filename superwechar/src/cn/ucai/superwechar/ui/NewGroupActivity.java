@@ -126,7 +126,7 @@ public class NewGroupActivity extends BaseActivity {
             new EaseAlertDialog(this, cn.ucai.superwechar.R.string.Group_name_cannot_be_empty).show();
         } else {
             // select from contact list
-            startActivityForResult(new Intent(this, GroupPickContactsActivity.class).putExtra("groupName", name), 0);
+            startActivityForResult(new Intent(this, GroupPickContactsActivity.class).putExtra("groupName", name), REQUESTCODE_PICK_MEMBER);
         }
     }
 
@@ -234,7 +234,7 @@ public class NewGroupActivity extends BaseActivity {
                         }
                         EMGroup group = EMClient.getInstance().groupManager().createGroup(groupName, desc, members, reason, option);
                         String hxid = group.getGroupId();
-                        createAppGroup(group);
+                        createAppGroup(group,members);
 
                     } catch (final HyphenateException e) {
                         createFail(e);
@@ -268,7 +268,7 @@ public class NewGroupActivity extends BaseActivity {
         });
     }
 
-    private void createAppGroup(EMGroup group) {
+    private void createAppGroup(final EMGroup group,final String[] members) {
         model.createGroup(NewGroupActivity.this, group.getGroupId(), group.getGroupName(), group.getDescription(),
                 group.getOwner(), group.isPublic(), group.isMemberAllowToInvite(), file,
                 new OnCompleteListener<String>() {
@@ -280,11 +280,16 @@ public class NewGroupActivity extends BaseActivity {
                             Result<Group> result = ResultUtils.getResultFromJson(s, Group.class);
                             if(result!=null&&result.isRetMsg()){
                                 isSuccess = true;
-                                createSuccess();
                             }
                         }
                         if(!isSuccess){
                             createFail(null);
+                        }else{
+                            if(members!=null&&members.length>0){
+                                addGroupMember(members,group.getGroupId());
+                            }else {
+                                createSuccess();
+                            }
                         }
                     }
 
@@ -294,6 +299,38 @@ public class NewGroupActivity extends BaseActivity {
                     }
                 });
     }
+
+    private void addGroupMember(String[] members, String groupId) {
+        StringBuilder sb = new StringBuilder();
+        for (String member : members) {
+            sb.append(member);
+            sb.append(",");
+        }
+        model.addGroupMembers(NewGroupActivity.this, sb.toString(), groupId, new OnCompleteListener<String>() {
+            @Override
+            public void onSuccess(String s) {
+                L.e(TAG,"addGroupMember,onSuccess,s="+s);
+                boolean isSuccess = false;
+                if(s!=null) {
+                    Result<Group> result = ResultUtils.getResultFromJson(s, Group.class);
+                    if (result != null && result.isRetMsg()) {
+                        isSuccess = true;
+                        createSuccess();
+                    }
+                }
+                if(!isSuccess){
+                    createFail(null);
+                }
+            }
+
+            @Override
+            public void onError(String error) {
+
+            }
+        });
+    }
+
+
 
     public void updateAvatar(View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

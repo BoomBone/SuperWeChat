@@ -37,6 +37,7 @@ import cn.ucai.superwechar.SuperWeChatHelper;
 import cn.ucai.easeui.adapter.EaseContactAdapter;
 import cn.ucai.easeui.domain.EaseUser;
 import cn.ucai.easeui.widget.EaseSidebar;
+import cn.ucai.superwechar.utils.L;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -44,6 +45,7 @@ import java.util.Comparator;
 import java.util.List;
 
 public class GroupPickContactsActivity extends BaseActivity {
+    private static final String TAG = "GroupPickContactsActivi";
     /** if this is a new group */
     protected boolean isCreatingNewGroup;
     private PickContactAdapter contactAdapter;
@@ -136,6 +138,8 @@ public class GroupPickContactsActivity extends BaseActivity {
         int length = contactAdapter.isCheckedArray.length;
         for (int i = 0; i < length; i++) {
             String username = contactAdapter.getItem(i).getMUserName();
+            L.e(TAG,"username="+username);
+            L.e(TAG,username);
             if (contactAdapter.isCheckedArray[i] && !existMembers.contains(username)) {
                 members.add(username);
             }
@@ -168,6 +172,7 @@ public class GroupPickContactsActivity extends BaseActivity {
 
             if (checkBox != null) {
                 if (existMembers != null && existMembers.contains(username)) {
+                    L.e(TAG,"existMembers="+existMembers);
                     checkBox.setButtonDrawable(cn.ucai.superwechar.R.drawable.em_checkbox_bg_gray_selector);
                 } else {
                     checkBox.setButtonDrawable(cn.ucai.superwechar.R.drawable.em_checkbox_bg_selector);
@@ -182,6 +187,7 @@ public class GroupPickContactsActivity extends BaseActivity {
                             checkBox.setChecked(true);
                         }
                         isCheckedArray[position] = isChecked;
+                        L.e(TAG,"isCheckedArray["+position+"]="+isChecked);
 
                     }
                 });

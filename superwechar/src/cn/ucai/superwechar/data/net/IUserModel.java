@@ -35,5 +35,6 @@ public interface IUserModel {
     void createGroup(Context context, String hxid, String name, String des, String owner
             , boolean isPublic, boolean isInviets, File file, OnCompleteListener<String> listener);
 
+    void addGroupMembers(Context context, String username, String hxid, OnCompleteListener<String> listener);
 
 }
