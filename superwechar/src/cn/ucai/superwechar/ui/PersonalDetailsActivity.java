@@ -80,8 +80,7 @@ public class PersonalDetailsActivity extends BaseActivity {
         tvUserinfoName.setText(user.getMUserName());
         tvUserinfoNick.setText(user.getMUserNick());
         EaseUserUtils.setAppUserAvatar(PersonalDetailsActivity.this, user, profileImage);
-//        showButton(SuperWeChatHelper.getInstance().getAppContactList().containsKey(user.getMUserName()));
-        showButton(isContact);
+        showButton(SuperWeChatHelper.getInstance().getAppContactList().containsKey(user.getMUserName()));
     }
 
     private void showButton(boolean isContact) {

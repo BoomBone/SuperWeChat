@@ -303,7 +303,7 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
 
             }
         });
-        MFGT.gotoProfile(getActivity(),username);
+//        MFGT.gotoProfile(getActivity(),username);
     }
     
     @Override

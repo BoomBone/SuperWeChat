@@ -57,7 +57,13 @@ import cn.ucai.easeui.widget.EaseAlertDialog;
 import cn.ucai.easeui.widget.EaseExpandGridView;
 import cn.ucai.easeui.widget.EaseSwitchButton;
 import cn.ucai.superwechar.SuperWeChatHelper;
+import cn.ucai.superwechar.data.Result;
+import cn.ucai.superwechar.data.net.IUserModel;
+import cn.ucai.superwechar.data.net.OnCompleteListener;
+import cn.ucai.superwechar.data.net.UserModel;
 import cn.ucai.superwechar.utils.L;
+import cn.ucai.superwechar.utils.MFGT;
+import cn.ucai.superwechar.utils.ResultUtils;
 
 import com.hyphenate.exceptions.HyphenateException;
 import com.hyphenate.util.EMLog;
@@ -96,6 +102,7 @@ public class GroupDetailsActivity extends BaseActivity implements OnClickListene
 
     String avatarName;
     UpdateAvatarBroadcastReceiver mReceiver;
+    IUserModel model;
 
     public static GroupDetailsActivity instance;
 
@@ -125,6 +132,7 @@ public class GroupDetailsActivity extends BaseActivity implements OnClickListene
 
         groupId = getIntent().getStringExtra("groupId");
         group = EMClient.getInstance().groupManager().getGroup(groupId);
+        model = new UserModel();
 
         // we are not supposed to show the group if we don't find the group
         if (group == null) {
@@ -998,6 +1006,12 @@ public class GroupDetailsActivity extends BaseActivity implements OnClickListene
             button.setVisibility(View.VISIBLE);
             EaseUserUtils.setAppUserNick(username, holder.textView);
             EaseUserUtils.setAppUserAvatar(getContext(), username, holder.imageView);
+            holder.imageView.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    getUser(username);
+                }
+            });
 
             LinearLayout id_background = (LinearLayout) convertView.findViewById(R.id.l_bg_id);
             id_background.setBackgroundColor(convertView.getResources().getColor(
@@ -1099,6 +1113,12 @@ public class GroupDetailsActivity extends BaseActivity implements OnClickListene
                 final String username = getItem(position);
                 EaseUserUtils.setAppUserNick(username, holder.textView);
                 EaseUserUtils.setAppUserAvatar(getContext(), username, holder.imageView);
+                holder.imageView.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        getUser(username);
+                    }
+                });
 
                 LinearLayout id_background = (LinearLayout) convertView.findViewById(R.id.l_bg_id);
                 if (isInMuteList(username)) {
@@ -1176,6 +1196,35 @@ public class GroupDetailsActivity extends BaseActivity implements OnClickListene
         public int getCount() {
             return super.getCount() + 1;
         }
+    }
+
+    private void getUser(String username) {
+        model.loadUserInfo(GroupDetailsActivity.this, username, new OnCompleteListener<String>() {
+            @Override
+            public void onSuccess(String s) {
+                User user = null;
+                boolean isSuccess = false;
+                if(s!=null){
+                    Result<User> result = ResultUtils.getResultFromJson(s, User.class);
+                    if(result!=null&&result.isRetMsg()){
+                        user = result.getRetData();
+                        if(user!=null){
+                            isSuccess = true;
+                        }
+                    }
+                    if(isSuccess){
+                        MFGT.gotoProfile(GroupDetailsActivity.this,user);
+                    }
+                }
+
+
+            }
+
+            @Override
+            public void onError(String error) {
+
+            }
+        });
     }
 
     protected void updateGroup() {
