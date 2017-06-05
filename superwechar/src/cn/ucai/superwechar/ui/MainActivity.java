@@ -449,6 +449,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
      */
     public void updateUnreadLabel() {
         int count = getUnreadMsgCountTotal();
+        layoutTabhost.setUnreadCount(0,count);
 //        if (count > 0) {
 //            unreadLabel.setText(String.valueOf(count));
 //            unreadLabel.setVisibility(View.VISIBLE);
@@ -503,10 +504,10 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     protected void onResume() {
         super.onResume();
 
-//        if (!isConflict && !isCurrentAccountRemoved) {
-//            updateUnreadLabel();
-//            updateUnreadAddressLable();
-//        }
+        if (!isConflict && !isCurrentAccountRemoved) {
+            updateUnreadLabel();
+            updateUnreadAddressLable();
+        }
 
         // unregister this event listener when this activity enters the
         // background
