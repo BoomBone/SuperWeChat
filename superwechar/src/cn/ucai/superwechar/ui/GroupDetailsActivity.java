@@ -24,6 +24,7 @@ import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -440,11 +441,18 @@ public class GroupDetailsActivity extends BaseActivity implements OnClickListene
                     .uploadAppGroundAvatar(saveBitmapFile(photo),groupId);
         }
     }
-
+    public static String getGroupAvatarPath(Context context, String path){
+        File dir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File folder = new File(dir,path);
+        if(!folder.exists()){
+            folder.mkdir();
+        }
+        return folder.getAbsolutePath();
+    }
     private File saveBitmapFile(Bitmap bitmap) {
         L.e(TAG,"saveBitmapFile");
         if (bitmap != null) {
-            String imagePath = getAvatarPath(GroupDetailsActivity.this, I.AVATAR_TYPE)+"/"+getAvatarName()+".jpg";
+            String imagePath = getGroupAvatarPath(GroupDetailsActivity.this, I.AVATAR_TYPE)+"/"+getAvatarName()+".jpg";
             File file = new File(imagePath);//将要保存图片的路径
             L.e("file path="+file.getAbsolutePath());
             L.e(TAG,imagePath);

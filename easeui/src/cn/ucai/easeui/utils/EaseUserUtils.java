@@ -75,18 +75,9 @@ public class EaseUserUtils {
     }
 
     public static void setAppGroupAvatar(Context context, String hxid, ImageView imageView) {
-        if (hxid != null) {
-            try {
-                int avatarResId = Integer.parseInt(getGroupAvatarPath(hxid));
-                Glide.with(context).load(avatarResId).into(imageView);
-            } catch (Exception e) {
-                //use default avatar
-                Glide.with(context).load(getGroupAvatarPath(hxid)).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.drawable.ease_group_icon).into(imageView);
-            }
-        } else {
-            Glide.with(context).load(R.drawable.ease_group_icon).into(imageView);
-        }
+       setAvatar(context,hxid,imageView,true);
     }
+
 
     /*----------------------------setAppUserAvatar--------------------------------------------*/
     public static void setAppUserAvatar(Context context, String username, ImageView imageView) {
@@ -109,19 +100,24 @@ public class EaseUserUtils {
     }
 
     public static void setAvatar(Context context, String avatarPath, ImageView imageView) {
-        if (avatarPath != null) {
+        setAvatar(context,avatarPath,imageView,false);
+    }
+
+    public static void setAvatar(Context context, String avatarPath, ImageView imageView,boolean isGroup) {
+        if ((isGroup?getGroupAvatarPath(avatarPath):avatarPath) != null) {
             try {
-                int avatarResId = Integer.parseInt(avatarPath);
+                int avatarResId = Integer.parseInt(isGroup?getGroupAvatarPath(avatarPath):avatarPath);
                 Glide.with(context).load(avatarResId).into(imageView);
             } catch (Exception e) {
                 //use default avatar
-                Glide.with(context).load(avatarPath).diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .placeholder(R.drawable.ease_default_avatar).into(imageView);
+                Glide.with(context).load(isGroup?getGroupAvatarPath(avatarPath):avatarPath).diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .placeholder(isGroup?R.drawable.ease_group_icon:R.drawable.ease_default_avatar).into(imageView);
             }
         } else {
-            Glide.with(context).load(R.drawable.ease_default_avatar).into(imageView);
+            Glide.with(context).load(isGroup?R.drawable.ease_group_icon:R.drawable.ease_default_avatar).into(imageView);
         }
     }
+
 
     /**
      * set user's nickname
