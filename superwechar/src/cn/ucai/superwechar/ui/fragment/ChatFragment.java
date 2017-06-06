@@ -277,33 +277,33 @@ public class ChatFragment extends EaseChatFragment implements EaseChatFragmentHe
 //        intent.putExtra("username", username);
 //        startActivity(intent);
 
-        model.loadUserInfo(getContext(), username, new OnCompleteListener<String>() {
-            @Override
-            public void onSuccess(String s) {
-                User user = null;
-                boolean isSuccess = false;
-                if(s!=null){
-                    Result<User> result = ResultUtils.getResultFromJson(s, User.class);
-                    if(result!=null&&result.isRetMsg()){
-                        user = result.getRetData();
-                        if(user!=null){
-                            isSuccess = true;
-                        }
-                    }
-                    if(isSuccess){
-                        MFGT.gotoProfile(getActivity(),user);
-                    }
-                }
-
-
-            }
-
-            @Override
-            public void onError(String error) {
-
-            }
-        });
-//        MFGT.gotoProfile(getActivity(),username);
+//        model.loadUserInfo(getContext(), username, new OnCompleteListener<String>() {
+//            @Override
+//            public void onSuccess(String s) {
+//                User user = null;
+//                boolean isSuccess = false;
+//                if(s!=null){
+//                    Result<User> result = ResultUtils.getResultFromJson(s, User.class);
+//                    if(result!=null&&result.isRetMsg()){
+//                        user = result.getRetData();
+//                        if(user!=null){
+//                            isSuccess = true;
+//                        }
+//                    }
+//                    if(isSuccess){
+//                        MFGT.gotoProfile(getActivity(),user);
+//                    }
+//                }
+//
+//
+//            }
+//
+//            @Override
+//            public void onError(String error) {
+//
+//            }
+//        });
+        MFGT.gotoProfile(getActivity(),username);
     }
     
     @Override

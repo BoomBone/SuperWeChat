@@ -209,7 +209,7 @@ public class UserProfileManager {
                 });
     }
 
-    public void uploadAppGroundAvatar(File file,String groupId) {
+    public void uploadAppGroundAvatar(File file, final String groupId) {
         L.e(TAG,"uploadAppGroundAvatar");
         model.updateAvatar(appContext, groupId, I.AVATAR_TYPE_GROUP_PATH,
                 file, new OnCompleteListener<String>() {
@@ -225,7 +225,7 @@ public class UserProfileManager {
                                     Group group = result.getRetData();
                                     if (group != null) {
                                         isSuccess = true;
-                                        setCurrentAppUserAvatar(group.getAvatar());
+                                        setCurrentAppUserAvatar(group.getAvatar(groupId));
                                     }
                                 }
                             }

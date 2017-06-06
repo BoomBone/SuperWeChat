@@ -16,6 +16,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.ucai.easeui.domain.User;
 import cn.ucai.easeui.utils.EaseUserUtils;
+import cn.ucai.superwechar.Constant;
 import cn.ucai.superwechar.I;
 import cn.ucai.superwechar.R;
 import cn.ucai.superwechar.SuperWeChatHelper;
@@ -23,6 +24,7 @@ import cn.ucai.superwechar.data.Result;
 import cn.ucai.superwechar.data.net.IUserModel;
 import cn.ucai.superwechar.data.net.OnCompleteListener;
 import cn.ucai.superwechar.data.net.UserModel;
+import cn.ucai.superwechar.db.UserDao;
 import cn.ucai.superwechar.utils.MFGT;
 import cn.ucai.superwechar.utils.ResultUtils;
 
@@ -44,36 +46,86 @@ public class PersonalDetailsActivity extends BaseActivity {
     User user = null;
     IUserModel model;
     private ProgressDialog progressDialog;
-    boolean isContact=false;
+    boolean isContact = false;
+    String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_personal_details);
         ButterKnife.bind(this);
         super.onCreate(savedInstanceState);
+        model = new UserModel();
         initData();
         showLeftBack();
-        model = new UserModel();
+
     }
 
     private void initData() {
-        String username = getIntent().getStringExtra(I.User.USER_NAME);
+        username = getIntent().getStringExtra(I.User.USER_NAME);
         if (username != null) {
             //根据用户名获取好友
             user = SuperWeChatHelper.getInstance().getAppContactList().get(username);
+            if(user==null&&!username.equals(EMClient.getInstance().getCurrentUser())){
+                syncUserInfo();
+            }
+
         }
         if (user == null) {
             user = (User) getIntent().getSerializableExtra(I.User.TABLE_NAME);
         }
         //点击自己的头像获取的自己用户名
-        if(user==null&&username.equals(EMClient.getInstance().getCurrentUser())){
+        if (user == null && username.equals(EMClient.getInstance().getCurrentUser())) {
             user = SuperWeChatHelper.getInstance().getUserProfileManager().getCurrentAppUserInfo();
         }
         if (user != null) {
             showInfo();
-        } else {
+
+        } else if (username == null) {
             finish();
         }
+    }
+
+    private void syncUserInfo() {
+        model.loadUserInfo(PersonalDetailsActivity.this, username, new OnCompleteListener<String>() {
+            @Override
+            public void onSuccess(String s) {
+                boolean isSuccess = false;
+                if (s != null) {
+                    Result<User> result = ResultUtils.getResultFromJson(s, User.class);
+                    if (result != null && result.isRetMsg()) {
+                        isSuccess = true;
+                        user = result.getRetData();
+                    }
+                }
+                if (!isSuccess) {
+                    showUser();
+                } else {
+                    showInfo();
+                    saveUser2DB();
+                }
+            }
+
+            @Override
+            public void onError(String error) {
+                showUser();
+            }
+        });
+    }
+
+    private void saveUser2DB() {
+        UserDao userDao = new UserDao(PersonalDetailsActivity.this);
+        if(SuperWeChatHelper.getInstance().getAppContactList().containsKey(user)){
+            userDao.saveAppContact(user);
+            SuperWeChatHelper.getInstance().getAppContactList().put(user.getMUserName(), user);
+            sendBroadcast(new Intent(Constant.ACTION_CONTACT_CHANAGED));
+        }
+
+    }
+
+    private void showUser() {
+        tvUserinfoName.setText(username);
+        EaseUserUtils.setAppUserNick(username, tvUserinfoNick);
+        EaseUserUtils.setAppUserAvatar(PersonalDetailsActivity.this, username, profileImage);
     }
 
     private void showInfo() {
@@ -84,7 +136,7 @@ public class PersonalDetailsActivity extends BaseActivity {
     }
 
     private void showButton(boolean isContact) {
-        if(!user.getMUserName().equals(EMClient.getInstance().getCurrentUser())){
+        if (!user.getMUserName().equals(EMClient.getInstance().getCurrentUser())) {
             btnAddContact.setVisibility(isContact ? View.GONE : View.VISIBLE);
             btnSendMsg.setVisibility(isContact ? View.VISIBLE : View.GONE);
             btnSendVideo.setVisibility(isContact ? View.VISIBLE : View.GONE);
