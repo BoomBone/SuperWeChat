@@ -1025,12 +1025,6 @@ public class GroupDetailsActivity extends BaseActivity implements OnClickListene
             button.setVisibility(View.VISIBLE);
             EaseUserUtils.setAppUserNick(username, holder.textView);
             EaseUserUtils.setAppUserAvatar(getContext(), username, holder.imageView);
-            holder.imageView.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    getUser(username);
-                }
-            });
 
             LinearLayout id_background = (LinearLayout) convertView.findViewById(R.id.l_bg_id);
             id_background.setBackgroundColor(convertView.getResources().getColor(
@@ -1038,11 +1032,19 @@ public class GroupDetailsActivity extends BaseActivity implements OnClickListene
             button.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    MFGT.gotoProfile(GroupDetailsActivity.this,username);
+                }
+            });
+
+            button.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+
                     if (!isCurrentOwner(group)) {
-                        return;
+                        return false;
                     }
                     if (username.equals(group.getOwner())) {
-                        return;
+                        return false;
                     }
                     operationUserId = username;
                     Dialog dialog = createMemberMenuDialog();
@@ -1063,6 +1065,7 @@ public class GroupDetailsActivity extends BaseActivity implements OnClickListene
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+                    return false;
                 }
             });
             return convertView;
@@ -1132,12 +1135,6 @@ public class GroupDetailsActivity extends BaseActivity implements OnClickListene
                 final String username = getItem(position);
                 EaseUserUtils.setAppUserNick(username, holder.textView);
                 EaseUserUtils.setAppUserAvatar(getContext(), username, holder.imageView);
-                holder.imageView.setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        getUser(username);
-                    }
-                });
 
                 LinearLayout id_background = (LinearLayout) convertView.findViewById(R.id.l_bg_id);
                 if (isInMuteList(username)) {
@@ -1147,12 +1144,17 @@ public class GroupDetailsActivity extends BaseActivity implements OnClickListene
                 } else {
                     id_background.setBackgroundColor(convertView.getResources().getColor(R.color.holo_blue_bright));
                 }
-
                 button.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        MFGT.gotoProfile(GroupDetailsActivity.this,username);
+                    }
+                });
+                button.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
                         if (!isCurrentOwner(group) && !isCurrentAdmin(group)) {
-                            return;
+                            return false;
                         }
                         operationUserId = username;
                         Dialog dialog = createMemberMenuDialog();
@@ -1204,6 +1206,7 @@ public class GroupDetailsActivity extends BaseActivity implements OnClickListene
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
+                        return false;
                     }
                 });
             }
@@ -1217,34 +1220,34 @@ public class GroupDetailsActivity extends BaseActivity implements OnClickListene
         }
     }
 
-    private void getUser(String username) {
-        model.loadUserInfo(GroupDetailsActivity.this, username, new OnCompleteListener<String>() {
-            @Override
-            public void onSuccess(String s) {
-                User user = null;
-                boolean isSuccess = false;
-                if(s!=null){
-                    Result<User> result = ResultUtils.getResultFromJson(s, User.class);
-                    if(result!=null&&result.isRetMsg()){
-                        user = result.getRetData();
-                        if(user!=null){
-                            isSuccess = true;
-                        }
-                    }
-                    if(isSuccess){
-                        MFGT.gotoProfile(GroupDetailsActivity.this,user);
-                    }
-                }
-
-
-            }
-
-            @Override
-            public void onError(String error) {
-
-            }
-        });
-    }
+//    private void getUser(String username) {
+//        model.loadUserInfo(GroupDetailsActivity.this, username, new OnCompleteListener<String>() {
+//            @Override
+//            public void onSuccess(String s) {
+//                User user = null;
+//                boolean isSuccess = false;
+//                if(s!=null){
+//                    Result<User> result = ResultUtils.getResultFromJson(s, User.class);
+//                    if(result!=null&&result.isRetMsg()){
+//                        user = result.getRetData();
+//                        if(user!=null){
+//                            isSuccess = true;
+//                        }
+//                    }
+//                    if(isSuccess){
+//                        MFGT.gotoProfile(GroupDetailsActivity.this,user);
+//                    }
+//                }
+//
+//
+//            }
+//
+//            @Override
+//            public void onError(String error) {
+//
+//            }
+//        });
+//    }
 
     protected void updateGroup() {
         new Thread(new Runnable() {
