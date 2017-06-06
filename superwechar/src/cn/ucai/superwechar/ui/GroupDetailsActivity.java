@@ -22,6 +22,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -320,7 +322,7 @@ public class GroupDetailsActivity extends BaseActivity implements OnClickListene
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(final int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case REQUESTCODE_PICK:
                 if (data == null || data.getData() == null) {
@@ -378,19 +380,36 @@ public class GroupDetailsActivity extends BaseActivity implements OnClickListene
                     if (!TextUtils.isEmpty(returnData)) {
                         progressDialog.setMessage(st5);
                         progressDialog.show();
-
                         new Thread(new Runnable() {
                             public void run() {
                                 try {
-                                    EMClient.getInstance().groupManager().changeGroupName(groupId, returnData);
-                                    runOnUiThread(new Runnable() {
-                                        public void run() {
+                                    model.updateGroupNameByHxid(GroupDetailsActivity.this, groupId, returnData, new OnCompleteListener<String>() {
+                                        @Override
+                                        public void onSuccess(String s) {
+                                            if(s!=null){
+                                                Result<Group> result = ResultUtils.getResultFromJson(s, Group.class);
+                                                if(result!=null&&result.isRetMsg()){
+                                                    final Group group = result.getRetData();
+                                                    runOnUiThread(new Runnable() {
+                                                        public void run() {
 //										((TextView) findViewById(R.id.group_name)).setText(group.getGroupName() + "(" + group.getMemberCount() + ")");
-                                            titleBar.setTitle(group.getGroupName() + "(" + group.getMemberCount() + ")");
-                                            progressDialog.dismiss();
-                                            Toast.makeText(getApplicationContext(), st6, Toast.LENGTH_SHORT).show();
+                                                            titleBar.setTitle(group.getMGroupName() + "(" + group.getMGroupMaxUsers() + ")");
+                                                            progressDialog.dismiss();
+                                                            Toast.makeText(getApplicationContext(), st6, Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    });
+                                                }
+                                            }
+
+                                        }
+
+                                        @Override
+                                        public void onError(String error) {
+
                                         }
                                     });
+                                    EMClient.getInstance().groupManager().changeGroupName(groupId, returnData);
+
 
                                 } catch (HyphenateException e) {
                                     e.printStackTrace();
@@ -445,8 +464,8 @@ public class GroupDetailsActivity extends BaseActivity implements OnClickListene
         Bundle extras = picdata.getExtras();
         if (extras != null) {
             Bitmap photo = extras.getParcelable("data");
-//            Drawable drawable = new BitmapDrawable(getResources(), photo);
-//            ivUserinfoAvatar.setImageDrawable(drawable);
+            Drawable drawable = new BitmapDrawable(getResources(), photo);
+            mGroupAvatar.setImageDrawable(drawable);
 //            uploadUserAvatar(Bitmap2Bytes(photo));
             SuperWeChatHelper.getInstance().getUserProfileManager()
                     .uploadAppGroundAvatar(saveBitmapFile(photo),groupId);
