@@ -26,6 +26,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -39,6 +40,9 @@ import com.hyphenate.exceptions.HyphenateException;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import cn.ucai.easeui.utils.EaseUserUtils;
+import cn.ucai.superwechar.R;
 
 public class PublicGroupsActivity extends BaseActivity {
 	private ProgressBar pb;
@@ -54,19 +58,19 @@ public class PublicGroupsActivity extends BaseActivity {
     private LinearLayout footLoadingLayout;
     private ProgressBar footLoadingPB;
     private TextView footLoadingText;
-    private Button searchBtn;
-    
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(cn.ucai.superwechar.R.layout.em_activity_public_groups);
 
+		setContentView(cn.ucai.superwechar.R.layout.em_activity_public_groups);
+        super.onCreate(savedInstanceState);
+        showLeftBack();
+        titleBar.getRightLayout().setVisibility(View.INVISIBLE);
 		pb = (ProgressBar) findViewById(cn.ucai.superwechar.R.id.progressBar);
 		listView = (ListView) findViewById(cn.ucai.superwechar.R.id.list);
 		groupsList = new ArrayList<EMGroupInfo>();
-		searchBtn = (Button) findViewById(cn.ucai.superwechar.R.id.btn_search);
-		
+
 		View footView = getLayoutInflater().inflate(cn.ucai.superwechar.R.layout.em_listview_footer_view, listView, false);
         footLoadingLayout = (LinearLayout) footView.findViewById(cn.ucai.superwechar.R.id.loading_layout);
         footLoadingPB = (ProgressBar)footView.findViewById(cn.ucai.superwechar.R.id.loading_bar);
@@ -75,6 +79,7 @@ public class PublicGroupsActivity extends BaseActivity {
         footLoadingLayout.setVisibility(View.GONE);
 
         loadAndShowData();
+        setListener();
 
         listView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -106,10 +111,15 @@ public class PublicGroupsActivity extends BaseActivity {
         
 	}
 
-	public void search(View view){
-	    startActivity(new Intent(this, PublicGroupsSeachActivity.class));
-	}
-	
+    private void setListener() {
+        titleBar.getRightLayout().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(PublicGroupsActivity.this, PublicGroupsSeachActivity.class));
+            }
+        });
+    }
+
 	private void loadAndShowData(){
 	    new Thread(new Runnable() {
 
@@ -121,7 +131,7 @@ public class PublicGroupsActivity extends BaseActivity {
                     runOnUiThread(new Runnable() {
 
                         public void run() {
-                            searchBtn.setVisibility(View.VISIBLE);
+                            titleBar.getRightLayout().setVisibility(View.VISIBLE);
                             groupsList.addAll(returnGroups);
                             if(returnGroups.size() != 0){
                                 cursor = result.getCursor();
@@ -179,6 +189,8 @@ public class PublicGroupsActivity extends BaseActivity {
 			}
 
 			((TextView) convertView.findViewById(cn.ucai.superwechar.R.id.name)).setText(getItem(position).getGroupName());
+            EaseUserUtils.setAppGroupAvatar(getContext(), getItem(position).getGroupId(),
+                    ((ImageView) convertView.findViewById(R.id.avatar)));
 
 			return convertView;
 		}
