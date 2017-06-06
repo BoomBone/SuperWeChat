@@ -39,4 +39,10 @@ public interface IUserModel {
 
     void updateGroupNameByHxid(Context context, String hxid, String newGroupname, OnCompleteListener<String> listener);
 
+    void addGroupMember(Context context, String hxid, String member, OnCompleteListener<String> listener);
+
+    void removeGroupMember(Context context, String hxid, String username, OnCompleteListener<String> listener);
+
+    void removeGroup(Context context, String hxid, OnCompleteListener<String> listener);
+
 }

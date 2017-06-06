@@ -173,6 +173,8 @@ public interface I {
 	String REQUEST_CREATE_GROUP			 			= 		"createGroup";
 	/** 客户端发送的更新群组名称的请求 */
 	String REQUEST_UPDATE_GROUP_NAME 				= 		"updateGroupName";
+	/** 客户端发送的通过环信id更新群组名称的请求 */
+	String REQUEST_UPDATE_GROUP_NAME_BY_HXID 		= 		"updateGroupNameByHxId";
 	/** 客户端发送的添加群成员的请求 */
 	String REQUEST_ADD_GROUP_MEMBER 				= 		"addGroupMember";
 	/** 客户端发送的批量添加群成员的请求 */

@@ -134,9 +134,38 @@ public class UserModel implements IUserModel {
     @Override
     public void updateGroupNameByHxid(Context context, String hxid, String newGroupname, OnCompleteListener<String> listener) {
         OkHttpUtils<String> utils = new OkHttpUtils<>(context);
-        utils.setRequestUrl(I.REQUEST_DELETE_GROUP_BY_HXID)
+        utils.setRequestUrl(I.REQUEST_UPDATE_GROUP_NAME_BY_HXID)
                 .addParam(I.Group.HX_ID, hxid)
                 .addParam(I.Group.NAME, newGroupname)
+                .targetClass(String.class)
+                .execute(listener);
+    }
+
+    @Override
+    public void addGroupMember(Context context, String hxid, String member, OnCompleteListener<String> listener) {
+        OkHttpUtils<String> utils = new OkHttpUtils<>(context);
+        utils.setRequestUrl(I.REQUEST_ADD_GROUP_MEMBER)
+                .addParam(I.Member.GROUP_HX_ID, hxid)
+                .addParam(I.Member.USER_NAME, member)
+                .targetClass(String.class)
+                .execute(listener);
+    }
+
+    @Override
+    public void removeGroupMember(Context context, String hxid, String username, OnCompleteListener<String> listener) {
+        OkHttpUtils<String> utils = new OkHttpUtils<>(context);
+        utils.setRequestUrl(I.REQUEST_DELETE_GROUP_MEMBER)
+                .addParam(I.Member.GROUP_ID, hxid)
+                .addParam(I.Member.USER_NAME, username)
+                .targetClass(String.class)
+                .execute(listener);
+    }
+
+    @Override
+    public void removeGroup(Context context, String hxid, OnCompleteListener<String> listener) {
+        OkHttpUtils<String> utils = new OkHttpUtils<>(context);
+        utils.setRequestUrl(I.REQUEST_DELETE_GROUP_BY_HXID)
+                .addParam(I.Group.HX_ID, hxid)
                 .targetClass(String.class)
                 .execute(listener);
     }
